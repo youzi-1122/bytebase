@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"context"
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"io"
 	"regexp"
@@ -30,7 +29,7 @@ const (
 		"SET character_set_results = %s;\n" +
 		"SET collation_connection  = %s;\n" +
 		"SET sql_mode              = '%s';\n"
-	tableStmtFmt = "" +
+	tableStmtFmt = "DROP TABLE IF EXISTS `%s`;\n" +
 		"--\n" +
 		"-- Table structure for `%s`\n" +
 		"--\n" +
@@ -85,28 +84,6 @@ func (driver *Driver) Dump(ctx context.Context, database string, out io.Writer, 
 	var payloadBytes []byte
 	// Before we dump the real data, we should record the binlog position for PITR.
 	// Please refer to https://github.com/bytebase/bytebase/blob/main/docs/design/pitr-mysql.md#full-backup for details.
-	if !schemaOnly {
-		log.Debug("flush tables in database with read locks",
-			zap.String("database", database))
-		if err := FlushTablesWithReadLock(ctx, conn, database); err != nil {
-			log.Error("flush tables failed", zap.Error(err))
-			return "", err
-		}
-
-		binlog, err := GetBinlogInfo(ctx, conn)
-		if err != nil {
-			return "", err
-		}
-		log.Debug("binlog coordinate at dump time",
-			zap.String("fileName", binlog.FileName),
-			zap.Int64("position", binlog.Position))
-
-		payload := api.BackupPayload{BinlogInfo: binlog}
-		payloadBytes, err = json.Marshal(payload)
-		if err != nil {
-			return "", err
-		}
-	}
 
 	options := sql.TxOptions{}
 	// TiDB does not support readonly, so we only set for MySQL.
