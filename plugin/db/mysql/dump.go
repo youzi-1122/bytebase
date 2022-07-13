@@ -383,15 +383,15 @@ func getTableStmt(txn *sql.Tx, dbName, tblName, tblType string) (string, error) 
 		return fmt.Sprintf(tableStmtFmt,tblName, tblName, stmt), nil
 	case viewTableType:
 		// This differs from mysqldump as it includes.
-		query := fmt.Sprintf("SHOW CREATE VIEW `%s`.`%s`;", dbName, tblName)
-		var createStmt, unused string
-		if err := txn.QueryRow(query).Scan(&unused, &createStmt, &unused, &unused); err != nil {
-			if err == sql.ErrNoRows {
-				return "", common.FormatDBErrorEmptyRowWithQuery(query)
-			}
-			return "", err
-		}
-		return fmt.Sprintf(viewStmtFmt, tblName,tblName, createStmt), nil
+		//query := fmt.Sprintf("SHOW CREATE VIEW `%s`.`%s`;", dbName, tblName)
+		//var createStmt, unused string
+		//if err := txn.QueryRow(query).Scan(&unused, &createStmt, &unused, &unused); err != nil {
+		//	if err == sql.ErrNoRows {
+		//		return "", common.FormatDBErrorEmptyRowWithQuery(query)
+		//	}
+		//	return "", err
+		//}
+		//return fmt.Sprintf(viewStmtFmt, tblName,tblName, createStmt), nil
 	default:
 		return "", fmt.Errorf("unrecognized table type %q for database %q table %q", tblType, dbName, tblName)
 	}
