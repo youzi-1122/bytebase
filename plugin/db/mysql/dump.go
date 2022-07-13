@@ -34,7 +34,7 @@ const (
 		"-- Table structure for `%s`\n" +
 		"--\n" +
 		"%s;\n"
-	viewStmtFmt = "" +
+	viewStmtFmt = "DROP TABLE IF EXISTS `%s`;\n" +
 		"--\n" +
 		"-- View structure for `%s`\n" +
 		"--\n" +
@@ -391,7 +391,7 @@ func getTableStmt(txn *sql.Tx, dbName, tblName, tblType string) (string, error) 
 			}
 			return "", err
 		}
-		return fmt.Sprintf(viewStmtFmt, tblName, createStmt), nil
+		return fmt.Sprintf(viewStmtFmt, tblName,tblName, createStmt), nil
 	default:
 		return "", fmt.Errorf("unrecognized table type %q for database %q table %q", tblType, dbName, tblName)
 	}
