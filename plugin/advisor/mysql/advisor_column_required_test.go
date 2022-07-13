@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 	"github.com/stretchr/testify/require"
 )
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 )
 
 // PolicyType is the type or name of a policy.

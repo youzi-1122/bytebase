@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // NewTaskCheckMigrationSchemaExecutor creates a task check migration schema executor.

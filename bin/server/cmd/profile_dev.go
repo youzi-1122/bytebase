@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/server"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/server"
 )
 
 func activeProfile(dataDir string) server.Profile {

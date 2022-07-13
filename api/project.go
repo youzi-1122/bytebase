@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // DefaultProjectID is the ID for the default project.

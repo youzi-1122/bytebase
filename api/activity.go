@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
-	"github.com/bytebase/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // ActivityType is the type for an activity.

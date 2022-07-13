@@ -3,11 +3,11 @@ package pg
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	_ "github.com/bytebase/bytebase/plugin/parser/engine/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/parser/engine/pg"
 )
 
 func TestPostgreSQLSyntax(t *testing.T) {

@@ -9,8 +9,8 @@ import (
 	"os/user"
 	"strings"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/db"
 	"github.com/spf13/cobra"
 	"github.com/xo/dburl"
 )

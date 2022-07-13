@@ -35,9 +35,9 @@ Demo Environment always reflects the main branch. Every update at the main branc
 
 ## The Dev Workflow with Environment
 
-1. Design your feature, our [API style guide](https://github.com/bytebase/bytebase/blob/main/docs/coding-guide.md).
+1. Design your feature, our [API style guide](https://github.com/youzi-1122/bytebase/blob/main/docs/coding-guide.md).
 2. Create a Pull Request, and check the preview.
-3. Request a review, our [Review guide](https://github.com/bytebase/bytebase/blob/main/docs/code-review-guide.md).
+3. Request a review, our [Review guide](https://github.com/youzi-1122/bytebase/blob/main/docs/code-review-guide.md).
 4. Make changes if necessary.
 5. Merge to the main branch.
 6. Checkout the [Demo Environment](https://demo.bytebase.com/) to see if your new feature behaves properly.

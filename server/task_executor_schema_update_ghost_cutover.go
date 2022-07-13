@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 // NewSchemaUpdateGhostCutoverTaskExecutor creates a schema update (gh-ost) cutover task executor.

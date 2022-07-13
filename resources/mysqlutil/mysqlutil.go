@@ -10,7 +10,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/bytebase/bytebase/resources/utils"
+	"github.com/youzi-1122/bytebase/resources/utils"
 )
 
 type binaryName string

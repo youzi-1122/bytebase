@@ -4,12 +4,12 @@ package main
 import (
 	"os"
 
-	"github.com/bytebase/bytebase/bin/bb/cmd"
+	"github.com/youzi-1122/bytebase/bin/bb/cmd"
 
 	// Register mysql driver
-	_ "github.com/bytebase/bytebase/plugin/db/mysql"
+	_ "github.com/youzi-1122/bytebase/plugin/db/mysql"
 	// Register postgres driver
-	_ "github.com/bytebase/bytebase/plugin/db/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/db/pg"
 )
 
 func main() {

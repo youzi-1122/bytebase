@@ -1,6 +1,6 @@
 package api
 
-import "github.com/bytebase/bytebase/plugin/vcs"
+import "github.com/youzi-1122/bytebase/plugin/vcs"
 
 // AuthProvider is the authentication provider which only supports GitLab for now.
 type AuthProvider struct {

@@ -3,8 +3,8 @@ package server
 import (
 	"net/http"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common/log"
 	"github.com/google/jsonapi"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"

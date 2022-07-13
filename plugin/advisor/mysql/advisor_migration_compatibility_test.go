@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/pingcap/tidb/types/parser_driver"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 )
 
 func TestBasic(t *testing.T) {

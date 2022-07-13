@@ -8,17 +8,17 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
 	"go.uber.org/zap"
 
 	"github.com/google/jsonapi"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 
-	vcsPlugin "github.com/bytebase/bytebase/plugin/vcs"
-	"github.com/bytebase/bytebase/plugin/vcs/gitlab"
+	vcsPlugin "github.com/youzi-1122/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs/gitlab"
 )
 
 func (s *Server) registerProjectRoutes(g *echo.Group) {

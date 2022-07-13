@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	enterpriseAPI "github.com/bytebase/bytebase/enterprise/api"
-	"github.com/bytebase/bytebase/enterprise/config"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	enterpriseAPI "github.com/youzi-1122/bytebase/enterprise/api"
+	"github.com/youzi-1122/bytebase/enterprise/config"
+	"github.com/youzi-1122/bytebase/store"
 	"github.com/golang-jwt/jwt/v4"
 )
 

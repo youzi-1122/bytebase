@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 
 	snow "github.com/snowflakedb/gosnowflake"
 	"go.uber.org/zap"

@@ -3,8 +3,8 @@ package api
 import (
 	"context"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
-	"github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/db"
 )
 
 // ConnectionInfo is the API message for connection infos.

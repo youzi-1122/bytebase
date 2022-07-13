@@ -8,13 +8,13 @@ import (
 	"os"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/mysql"
-	"github.com/bytebase/bytebase/resources/mysqlutil"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/mysql"
+	"github.com/youzi-1122/bytebase/resources/mysqlutil"
+	"github.com/youzi-1122/bytebase/store"
 	"go.uber.org/zap"
 )
 

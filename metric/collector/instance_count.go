@@ -3,10 +3,10 @@ package collector
 import (
 	"context"
 
-	"github.com/bytebase/bytebase/common/log"
-	metricAPI "github.com/bytebase/bytebase/metric"
-	"github.com/bytebase/bytebase/plugin/metric"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/common/log"
+	metricAPI "github.com/youzi-1122/bytebase/metric"
+	"github.com/youzi-1122/bytebase/plugin/metric"
+	"github.com/youzi-1122/bytebase/store"
 	"go.uber.org/zap"
 )
 

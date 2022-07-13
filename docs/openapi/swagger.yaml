@@ -22,11 +22,11 @@ info:
   contact:
     email: support@bytebase.com
     name: API Support
-    url: https://github.com/bytebase/bytebase/
+    url: https://github.com/youzi-1122/bytebase/
   description: The OpenAPI for bytebase.
   license:
     name: MIT
-    url: https://github.com/bytebase/bytebase/blob/main/LICENSE
+    url: https://github.com/youzi-1122/bytebase/blob/main/LICENSE
   termsOfService: https://www.bytebase.com/terms
   title: Bytebase OpenAPI
   version: "1.0"

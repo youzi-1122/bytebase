@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 )
 
 // SyncInstance syncs the instance.

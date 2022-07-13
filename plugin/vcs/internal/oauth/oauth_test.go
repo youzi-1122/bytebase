@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 func TestPost(t *testing.T) {

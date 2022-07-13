@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 	"github.com/labstack/echo/v4"
 )
 

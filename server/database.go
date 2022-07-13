@@ -12,10 +12,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db"
 )
 
 func (s *Server) registerDatabaseRoutes(g *echo.Group) {

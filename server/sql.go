@@ -14,14 +14,14 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/advisor"
-	"github.com/bytebase/bytebase/plugin/advisor/catalog"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/util"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/store"
 )
 
 func (s *Server) registerSQLRoutes(g *echo.Group) {

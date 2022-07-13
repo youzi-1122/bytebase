@@ -3,7 +3,7 @@ package segment
 import (
 	"time"
 
-	"github.com/bytebase/bytebase/plugin/metric"
+	"github.com/youzi-1122/bytebase/plugin/metric"
 
 	"github.com/segmentio/analytics-go"
 )

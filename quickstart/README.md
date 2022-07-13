@@ -7,7 +7,7 @@ Prerequisite:
 ## MySQL
 1. 
     ```
-    git clone https://github.com/bytebase/bytebase.git && \
+    git clone https://github.com/youzi-1122/bytebase.git && \
     cd bytebase/quickstart
     ```
 
@@ -29,7 +29,7 @@ Prerequisite:
 ## Clickhouse
 1. 
     ```
-    git clone https://github.com/bytebase/bytebase.git && \
+    git clone https://github.com/youzi-1122/bytebase.git && \
     cd bytebase/quickstart
     ```
 
@@ -50,7 +50,7 @@ Prerequisite:
 
 1. 
     ```
-    git clone https://github.com/bytebase/bytebase.git && \
+    git clone https://github.com/youzi-1122/bytebase.git && \
     cd bytebase/quickstart
     ```
 
@@ -79,7 +79,7 @@ Prerequisite:
 
 1. 
     ```
-    git clone https://github.com/bytebase/bytebase.git && \
+    git clone https://github.com/youzi-1122/bytebase.git && \
     cd bytebase/quickstart
     ```
 

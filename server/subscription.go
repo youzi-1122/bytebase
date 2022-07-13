@@ -8,10 +8,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	enterpriseAPI "github.com/bytebase/bytebase/enterprise/api"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	enterpriseAPI "github.com/youzi-1122/bytebase/enterprise/api"
 )
 
 func (s *Server) registerSubscriptionRoutes(g *echo.Group) {

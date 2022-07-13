@@ -15,9 +15,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/vcs"
-	"github.com/bytebase/bytebase/plugin/vcs/internal/oauth"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs/internal/oauth"
 )
 
 const (
@@ -330,7 +330,7 @@ func (p *Provider) fetchPaginatedRepositoryList(ctx context.Context, oauthCtx co
 
 	// NOTE: We deliberately choose to not use the Link header for checking the next
 	// page to avoid introducing a new dependency, see
-	// https://github.com/bytebase/bytebase/pull/1423#discussion_r884278534 for the
+	// https://github.com/youzi-1122/bytebase/pull/1423#discussion_r884278534 for the
 	// discussion.
 	return repos, len(repos) >= 100, nil
 }
@@ -563,7 +563,7 @@ func (p *Provider) fetchPaginatedRepositoryActiveMemberList(ctx context.Context,
 
 	// NOTE: We deliberately choose to not use the Link header for checking the next
 	// page to avoid introducing a new dependency, see
-	// https://github.com/bytebase/bytebase/pull/1423#discussion_r884278534 for the
+	// https://github.com/youzi-1122/bytebase/pull/1423#discussion_r884278534 for the
 	// discussion.
 	return members, len(members) >= 100, nil
 }

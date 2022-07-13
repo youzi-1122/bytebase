@@ -7,10 +7,10 @@ import (
 	"github.com/google/jsonapi"
 	"github.com/labstack/echo/v4"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	vcsPlugin "github.com/bytebase/bytebase/plugin/vcs"
-	_ "github.com/bytebase/bytebase/plugin/vcs/github" // Import to call the init until it is imported from somewhere else
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	vcsPlugin "github.com/youzi-1122/bytebase/plugin/vcs"
+	_ "github.com/youzi-1122/bytebase/plugin/vcs/github" // Import to call the init until it is imported from somewhere else
 )
 
 func (s *Server) registerOAuthRoutes(g *echo.Group) {
@@ -42,8 +42,8 @@ func (s *Server) registerOAuthRoutes(g *echo.Group) {
 			clientSecret := req.ClientSecret
 			// Since we may not pass in ClientID and ClientSecret in the request, we will use the client ID and secret from VCS store even if it's stale.
 			// If it's stale, we should return better error messages and ask users to update the VCS secrets.
-			// https://sourcegraph.com/github.com/bytebase/bytebase/-/blob/frontend/src/components/RepositorySelectionPanel.vue?L77:8&subtree=true
-			// https://github.com/bytebase/bytebase/issues/1372
+			// https://sourcegraph.com/github.com/youzi-1122/bytebase/-/blob/frontend/src/components/RepositorySelectionPanel.vue?L77:8&subtree=true
+			// https://github.com/youzi-1122/bytebase/issues/1372
 			if clientID == "" || clientSecret == "" {
 				clientID = vcs.ApplicationID
 				clientSecret = vcs.Secret

@@ -11,10 +11,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bytebase/bytebase/common/log"
-	pluginmysql "github.com/bytebase/bytebase/plugin/db/mysql"
-	resourcemysql "github.com/bytebase/bytebase/resources/mysql"
-	"github.com/bytebase/bytebase/resources/mysqlutil"
+	"github.com/youzi-1122/bytebase/common/log"
+	pluginmysql "github.com/youzi-1122/bytebase/plugin/db/mysql"
+	resourcemysql "github.com/youzi-1122/bytebase/resources/mysql"
+	"github.com/youzi-1122/bytebase/resources/mysqlutil"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zapcore"
 )

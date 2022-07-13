@@ -14,11 +14,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db"
-	dbplugin "github.com/bytebase/bytebase/plugin/db"
-	resourcemysql "github.com/bytebase/bytebase/resources/mysql"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	dbplugin "github.com/youzi-1122/bytebase/plugin/db"
+	resourcemysql "github.com/youzi-1122/bytebase/resources/mysql"
 	"go.uber.org/zap/zapcore"
 
 	"github.com/stretchr/testify/require"

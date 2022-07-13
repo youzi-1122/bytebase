@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/vcs"
-	"github.com/bytebase/bytebase/plugin/vcs/gitlab"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs/gitlab"
 	"github.com/stretchr/testify/require"
 )
 

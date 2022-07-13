@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // NewTaskCheckTimingExecutor creates a task check timing executor.

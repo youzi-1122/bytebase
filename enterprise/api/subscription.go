@@ -1,6 +1,6 @@
 package api
 
-import "github.com/bytebase/bytebase/api"
+import "github.com/youzi-1122/bytebase/api"
 
 // SubscriptionPatch is the API message for update the subscription.
 type SubscriptionPatch struct {

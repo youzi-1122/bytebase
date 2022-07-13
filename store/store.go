@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 // Store provides database access to all raw objects

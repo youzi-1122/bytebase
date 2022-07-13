@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 	"go.uber.org/zap"
 )
 
@@ -83,7 +83,7 @@ func (driver *Driver) Dump(ctx context.Context, database string, out io.Writer, 
 
 	var payloadBytes []byte
 	// Before we dump the real data, we should record the binlog position for PITR.
-	// Please refer to https://github.com/bytebase/bytebase/blob/main/docs/design/pitr-mysql.md#full-backup for details.
+	// Please refer to https://github.com/youzi-1122/bytebase/blob/main/docs/design/pitr-mysql.md#full-backup for details.
 
 	options := sql.TxOptions{}
 	// TiDB does not support readonly, so we only set for MySQL.
@@ -260,7 +260,7 @@ func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, s
 }
 
 // excludeSchemaAutoIncrementValue excludes the starting value of AUTO_INCREMENT if it's a schema only dump.
-// https://github.com/bytebase/bytebase/issues/123
+// https://github.com/youzi-1122/bytebase/issues/123
 func excludeSchemaAutoIncrementValue(s string) string {
 	return excludeAutoIncrement.ReplaceAllString(s, ``)
 }

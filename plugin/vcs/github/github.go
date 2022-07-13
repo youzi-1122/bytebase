@@ -14,9 +14,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/vcs"
-	"github.com/bytebase/bytebase/plugin/vcs/internal/oauth"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs/internal/oauth"
 )
 
 const (
@@ -297,7 +297,7 @@ func (p *Provider) fetchPaginatedRepositoryCollaborators(ctx context.Context, oa
 
 	// NOTE: We deliberately choose to not use the Link header for checking the next
 	// page to avoid introducing a new dependency, see
-	// https://github.com/bytebase/bytebase/pull/1423#discussion_r884278534 for the
+	// https://github.com/youzi-1122/bytebase/pull/1423#discussion_r884278534 for the
 	// discussion.
 	return collaborators, len(collaborators) >= 100, nil
 }
@@ -435,49 +435,49 @@ func (p *Provider) fetchPaginatedRepositoryList(ctx context.Context, oauthCtx co
 
 	// NOTE: We deliberately choose to not use the Link header for checking the next
 	// page to avoid introducing a new dependency, see
-	// https://github.com/bytebase/bytebase/pull/1423#discussion_r884278534 for the
+	// https://github.com/youzi-1122/bytebase/pull/1423#discussion_r884278534 for the
 	// discussion.
 	return repos, len(repos) >= 100, nil
 }
 
 // FetchRepositoryFileList fetch the files from repository tree
 func (p *Provider) FetchRepositoryFileList(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, ref, filePath string) ([]*vcs.RepositoryTreeNode, error) {
-	return nil, errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return nil, errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // CreateFile creates a file.
 func (p *Provider) CreateFile(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, filePath string, fileCommit vcs.FileCommitCreate) error {
-	return errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // OverwriteFile overwrite the content of a file.
 func (p *Provider) OverwriteFile(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, filePath string, fileCommit vcs.FileCommitCreate) error {
-	return errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // ReadFileMeta reads the file metadata.
 func (p *Provider) ReadFileMeta(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, filePath, ref string) (*vcs.FileMeta, error) {
-	return nil, errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return nil, errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // ReadFileContent reads the file content.
 func (p *Provider) ReadFileContent(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, filePath, ref string) (string, error) {
-	return "", errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return "", errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // CreateWebhook creates a webhook in a GitLab project.
 func (p *Provider) CreateWebhook(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID string, payload []byte) (string, error) {
-	return "", errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return "", errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // PatchWebhook patches a webhook in a GitLab project.
 func (p *Provider) PatchWebhook(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, webhookID string, payload []byte) error {
-	return errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // DeleteWebhook deletes a webhook in a GitLab project.
 func (p *Provider) DeleteWebhook(ctx context.Context, oauthCtx common.OauthContext, instanceURL, repositoryID, webhookID string) error {
-	return errors.New("not implemented yet") // TODO: https://github.com/bytebase/bytebase/issues/928
+	return errors.New("not implemented yet") // TODO: https://github.com/youzi-1122/bytebase/issues/928
 }
 
 // oauthContext is the request context for refreshing oauth token.

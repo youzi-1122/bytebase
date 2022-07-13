@@ -13,8 +13,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	"github.com/bytebase/bytebase/plugin/vcs"
-	"github.com/bytebase/bytebase/plugin/vcs/gitlab"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs/gitlab"
 )
 
 // GitLab is a fake implementation of GitLab.

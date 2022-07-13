@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/common/log"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )

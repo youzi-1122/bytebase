@@ -6,11 +6,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common/log"
-	enterpriseAPI "github.com/bytebase/bytebase/enterprise/api"
-	"github.com/bytebase/bytebase/plugin/metric"
-	"github.com/bytebase/bytebase/plugin/metric/segment"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common/log"
+	enterpriseAPI "github.com/youzi-1122/bytebase/enterprise/api"
+	"github.com/youzi-1122/bytebase/plugin/metric"
+	"github.com/youzi-1122/bytebase/plugin/metric/segment"
 
 	"go.uber.org/zap"
 )

@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/resources/mysql"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/resources/mysql"
 	ghostsql "github.com/github/gh-ost/go/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/stretchr/testify/require"

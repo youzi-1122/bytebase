@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 	"github.com/pingcap/tidb/parser/ast"
 	"github.com/pingcap/tidb/parser/format"
 )

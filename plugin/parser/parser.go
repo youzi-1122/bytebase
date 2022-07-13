@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/bytebase/bytebase/plugin/parser/ast"
+	"github.com/youzi-1122/bytebase/plugin/parser/ast"
 )
 
 // EngineType is the type of a parser engine.

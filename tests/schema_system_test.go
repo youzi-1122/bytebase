@@ -12,11 +12,11 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/advisor"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/resources/mysql"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/resources/mysql"
 	"github.com/stretchr/testify/require"
 )
 

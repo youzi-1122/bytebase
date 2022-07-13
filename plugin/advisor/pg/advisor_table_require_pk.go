@@ -1,8 +1,8 @@
 package pg
 
 import (
-	"github.com/bytebase/bytebase/plugin/advisor"
-	"github.com/bytebase/bytebase/plugin/parser/ast"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/parser/ast"
 )
 
 var (

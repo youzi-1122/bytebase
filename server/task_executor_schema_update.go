@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 // NewSchemaUpdateTaskExecutor creates a schema update (DDL) task executor.

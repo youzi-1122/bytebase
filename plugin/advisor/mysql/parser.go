@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 	"github.com/pingcap/tidb/parser"
 	"github.com/pingcap/tidb/parser/ast"
 )
@@ -11,7 +11,7 @@ func newParser() *parser.Parser {
 	p := parser.New()
 
 	// To support MySQL8 window function syntax.
-	// See https://github.com/bytebase/bytebase/issues/175.
+	// See https://github.com/youzi-1122/bytebase/issues/175.
 	p.EnableWindowFunc(true)
 
 	return p

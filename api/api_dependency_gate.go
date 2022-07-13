@@ -10,9 +10,9 @@ package api
 import (
 	// TODO(rebelice): fix the incorrect dependency and uncomment these
 
-	_ "github.com/bytebase/bytebase/plugin/advisor"
-	_ "github.com/bytebase/bytebase/plugin/db"
-	_ "github.com/bytebase/bytebase/plugin/metric"
-	_ "github.com/bytebase/bytebase/plugin/vcs"
-	_ "github.com/bytebase/bytebase/plugin/webhook"
+	_ "github.com/youzi-1122/bytebase/plugin/advisor"
+	_ "github.com/youzi-1122/bytebase/plugin/db"
+	_ "github.com/youzi-1122/bytebase/plugin/metric"
+	_ "github.com/youzi-1122/bytebase/plugin/vcs"
+	_ "github.com/youzi-1122/bytebase/plugin/webhook"
 )

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/bytebase/bytebase/plugin/advisor/catalog"
+	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"go.uber.org/zap/zapcore"
 )
 

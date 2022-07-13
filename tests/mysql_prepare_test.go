@@ -6,7 +6,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/resources/mysql"
+	"github.com/youzi-1122/bytebase/resources/mysql"
 	"github.com/stretchr/testify/require"
 )
 

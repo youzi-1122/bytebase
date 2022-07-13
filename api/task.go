@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // These are special onboarding tasks for demo purpose when bootstrapping the workspace.

@@ -3,7 +3,7 @@ package pg
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 )
 
 func TestRequirePK(t *testing.T) {

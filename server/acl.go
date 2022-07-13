@@ -9,8 +9,8 @@ import (
 
 	"github.com/casbin/casbin/v2"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
 	"github.com/labstack/echo/v4"
 )
 

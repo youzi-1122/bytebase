@@ -8,10 +8,10 @@ import (
 	"testing"
 
 	"github.com/blang/semver/v4"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	dbdriver "github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/resources/postgres"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	dbdriver "github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/resources/postgres"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 )

@@ -1,6 +1,6 @@
 # Bytebase Frontend Style Guide
 
-We are following [Bytebase's API Style Guide](https://github.com/bytebase/bytebase/blob/main/docs/api-style-guide.md) to ensure our style guide is **consistent**.
+We are following [Bytebase's API Style Guide](https://github.com/youzi-1122/bytebase/blob/main/docs/api-style-guide.md) to ensure our style guide is **consistent**.
 
 # URL naming
 
@@ -26,7 +26,7 @@ _Rationale_: Plural forms have several variations and it's hard for non-native E
 
 ## Variables and properties
 
-We are following the "Property Name Convention" guide in [Bytebase's API Style Guide](https://github.com/bytebase/bytebase/blob/main/docs/api-style-guide.md#property-name-convention).
+We are following the "Property Name Convention" guide in [Bytebase's API Style Guide](https://github.com/youzi-1122/bytebase/blob/main/docs/api-style-guide.md#property-name-convention).
 
 This allows us to follow vue recommended naming style such as [vue/attribute-hyphenation](https://eslint.vuejs.org/rules/attribute-hyphenation.html) and [vue/camelcase](https://eslint.vuejs.org/rules/camelcase.html). Making our code looks more likely to vue's "local accent".
 
@@ -55,7 +55,7 @@ We prefer templates rather than JSX. Since templates are better optimized in com
 
 We recommend using a "local state" pattern when components mutate their properties or provide a `v-model` property. This also helps us to avoid complaints from [vue/no-mutating-props](https://eslint.vuejs.org/rules/no-mutating-props.html).
 
-See [BBSwitch](https://github.com/bytebase/bytebase/blob/main/frontend/src/bbkit/BBSwitch.vue) as an example of this pattern.
+See [BBSwitch](https://github.com/youzi-1122/bytebase/blob/main/frontend/src/bbkit/BBSwitch.vue) as an example of this pattern.
 
 # Linting and formatting
 
@@ -67,10 +67,10 @@ We are using Vue, TypeScript and Tailwind CSS. Following their recommended style
 
 We are using [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) as our lint and format tools. [plugin:vue/vue3-recommended](https://eslint.vuejs.org/) as our default lint rules.
 
-See [the configuration file](https://github.com/bytebase/bytebase/blob/main/frontend/.eslintrc.js) to learn more about the rules.
+See [the configuration file](https://github.com/youzi-1122/bytebase/blob/main/frontend/.eslintrc.js) to learn more about the rules.
 
 # References
 
-1. [Bytebase's API Style Guide](https://github.com/bytebase/bytebase/blob/main/docs/api-style-guide.md)
+1. [Bytebase's API Style Guide](https://github.com/youzi-1122/bytebase/blob/main/docs/api-style-guide.md)
 1. [Google's AIP](https://google.aip.dev/)
 1. [Kubernetes API reference](https://kubernetes.io/docs/reference/)

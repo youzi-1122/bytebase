@@ -11,10 +11,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	vcsPlugin "github.com/bytebase/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	vcsPlugin "github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 func (s *Server) registerProjectMemberRoutes(g *echo.Group) {

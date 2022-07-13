@@ -11,13 +11,13 @@
   <a href="#installation">Install</a> •
   <a href="#-docs">Help</a> •
   <a href="#-development">Development</a> •
-  <a href="https://github.com/bytebase/bytebase/tree/main/docs/design">Design Doc</a>
+  <a href="https://github.com/youzi-1122/bytebase/tree/main/docs/design">Design Doc</a>
 </p>
 
 <p align="center">
 <img alt="status" src="https://img.shields.io/badge/status-beta-blue" />
-<a href="https://goreportcard.com/report/github.com/bytebase/bytebase">
-    <img alt="go report" src="https://goreportcard.com/badge/github.com/bytebase/bytebase" />
+<a href="https://goreportcard.com/report/github.com/youzi-1122/bytebase">
+    <img alt="go report" src="https://goreportcard.com/badge/github.com/youzi-1122/bytebase" />
 </a>
 <a href="https://hub.docker.com/r/bytebase/bytebase">
     <img alt="Docker pulls" src="https://img.shields.io/docker/pulls/bytebase/bytebase.svg" />
@@ -25,7 +25,7 @@
 </p>
 
 <p align="center" >
-<a href="https://gitpod.io/#https://github.com/bytebase/bytebase">
+<a href="https://gitpod.io/#https://github.com/youzi-1122/bytebase">
    <image src="https://gitpod.io/button/open-in-gitpod.svg" />
 </a>
 </p>
@@ -96,15 +96,15 @@ In particular, get familar with various product concept such as [data model](htt
 
 ### Design doc
 
-https://github.com/bytebase/bytebase/tree/main/docs/design
+https://github.com/youzi-1122/bytebase/tree/main/docs/design
 
 ### Version upgrade policy
 
-https://github.com/bytebase/bytebase/tree/main/docs/version-management.md
+https://github.com/youzi-1122/bytebase/tree/main/docs/version-management.md
 
 ## 🕊 Interested in contributing?
 
-1. Checkout issues tagged with [good first issue](https://github.com/bytebase/bytebase/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+1. Checkout issues tagged with [good first issue](https://github.com/youzi-1122/bytebase/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 1. We are maintaining an [online database glossary list](https://bytebase.com/database-glossary/?source=github), you can add/improve content there.
 
@@ -113,7 +113,7 @@ https://github.com/bytebase/bytebase/tree/main/docs/version-management.md
 ## 🏗 Development
 
 <p align="center" >
-<a href="https://gitpod.io/#https://github.com/bytebase/bytebase">
+<a href="https://gitpod.io/#https://github.com/youzi-1122/bytebase">
     <image src="https://gitpod.io/button/open-in-gitpod.svg" />
 </a>
 </p>
@@ -125,7 +125,7 @@ working on the code:
 1. It requires zero config.
 1. 1 command to start backend and 1 command to start frontend, both with live reload support.
 
-**[Coding guideline](https://github.com/bytebase/bytebase/tree/main/docs/dev-guide.md)**
+**[Coding guideline](https://github.com/youzi-1122/bytebase/tree/main/docs/dev-guide.md)**
 
 **Tech Stack**
 
@@ -148,7 +148,7 @@ working on the code:
 1. Pull source.
 
    ```bash
-   git clone https://github.com/bytebase/bytebase
+   git clone https://github.com/youzi-1122/bytebase
    ```
 
 1. Set up pre-commit hooks.

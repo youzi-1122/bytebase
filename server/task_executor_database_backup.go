@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common/log"
 	"go.uber.org/zap"
 )
 

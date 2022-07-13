@@ -13,8 +13,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/resources/utils"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/resources/utils"
 )
 
 // Instance is a postgres instance installed by bytebase

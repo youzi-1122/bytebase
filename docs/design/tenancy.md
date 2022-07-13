@@ -207,7 +207,7 @@ deployment_config:
 ```
 
 ### Schema Change Workflow
-We should move issue [pipeline generation](https://github.com/bytebase/bytebase/blob/main/frontend/src/plugins/issue/DatabaseSchemaUpdateTemplate.ts#L17) from frontend to [backend](https://github.com/bytebase/bytebase/blob/main/server/issue.go#L406). We'd like the backend to take more responsibility for complexity. This also allows the backend to figure out the pipeline based on project tenant mode and deployment configuration.
+We should move issue [pipeline generation](https://github.com/youzi-1122/bytebase/blob/main/frontend/src/plugins/issue/DatabaseSchemaUpdateTemplate.ts#L17) from frontend to [backend](https://github.com/youzi-1122/bytebase/blob/main/server/issue.go#L406). We'd like the backend to take more responsibility for complexity. This also allows the backend to figure out the pipeline based on project tenant mode and deployment configuration.
 
 #### UI
 Tenant mode projects should show databases in tenant view (TBD). Schema altering should be applied to all tenants given a database name.
@@ -307,7 +307,7 @@ CREATE UNIQUE INDEX idx_deployment_config_project_id_name ON deployment_config(p
 ```
 
 #### Tenant Mode
-This will be a new ENUM field on the existing [project table](https://github.com/bytebase/bytebase/blob/main/store/migration/10001__init_schema.sql#L202).
+This will be a new ENUM field on the existing [project table](https://github.com/youzi-1122/bytebase/blob/main/store/migration/10001__init_schema.sql#L202).
 
 ### Tenancy with different database names
 

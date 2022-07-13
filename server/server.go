@@ -23,17 +23,17 @@ import (
 	scas "github.com/qiangmzsx/string-adapter/v2"
 	echoSwagger "github.com/swaggo/echo-swagger"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	_ "github.com/bytebase/bytebase/docs/openapi" // initial the swagger doc
-	enterpriseAPI "github.com/bytebase/bytebase/enterprise/api"
-	enterpriseService "github.com/bytebase/bytebase/enterprise/service"
-	"github.com/bytebase/bytebase/metric"
-	metricCollector "github.com/bytebase/bytebase/metric/collector"
-	"github.com/bytebase/bytebase/resources/mysqlutil"
-	"github.com/bytebase/bytebase/resources/postgres"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	_ "github.com/youzi-1122/bytebase/docs/openapi" // initial the swagger doc
+	enterpriseAPI "github.com/youzi-1122/bytebase/enterprise/api"
+	enterpriseService "github.com/youzi-1122/bytebase/enterprise/service"
+	"github.com/youzi-1122/bytebase/metric"
+	metricCollector "github.com/youzi-1122/bytebase/metric/collector"
+	"github.com/youzi-1122/bytebase/resources/mysqlutil"
+	"github.com/youzi-1122/bytebase/resources/postgres"
+	"github.com/youzi-1122/bytebase/store"
 )
 
 // openAPIPrefix is the API prefix for Bytebase OpenAPI
@@ -89,11 +89,11 @@ var casbinDeveloperPolicy string
 // @termsOfService https://www.bytebase.com/terms
 
 // @contact.name API Support
-// @contact.url https://github.com/bytebase/bytebase/
+// @contact.url https://github.com/youzi-1122/bytebase/
 // @contact.email support@bytebase.com
 
 // @license.name MIT
-// @license.url https://github.com/bytebase/bytebase/blob/main/LICENSE
+// @license.url https://github.com/youzi-1122/bytebase/blob/main/LICENSE
 
 // @host localhost:8080
 // @BasePath /v1/

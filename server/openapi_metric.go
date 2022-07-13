@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"time"
 
-	metricAPI "github.com/bytebase/bytebase/metric"
-	"github.com/bytebase/bytebase/plugin/metric"
+	metricAPI "github.com/youzi-1122/bytebase/metric"
+	"github.com/youzi-1122/bytebase/plugin/metric"
 	"github.com/labstack/echo/v4"
 )
 

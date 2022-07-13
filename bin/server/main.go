@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/bytebase/bytebase/bin/server/cmd"
+	"github.com/youzi-1122/bytebase/bin/server/cmd"
 )
 
 func main() {

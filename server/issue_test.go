@@ -3,7 +3,7 @@ package server
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 	"github.com/stretchr/testify/assert"
 )
 

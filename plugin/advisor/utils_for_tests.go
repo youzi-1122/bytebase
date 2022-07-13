@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/advisor/catalog"
+	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

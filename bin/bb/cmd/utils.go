@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/resources/postgres"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/resources/postgres"
 
 	// install mysql driver.
-	_ "github.com/bytebase/bytebase/plugin/db/mysql"
+	_ "github.com/youzi-1122/bytebase/plugin/db/mysql"
 	// install pg driver.
-	_ "github.com/bytebase/bytebase/plugin/db/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/db/pg"
 	"github.com/xo/dburl"
 )
 

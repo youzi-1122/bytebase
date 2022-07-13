@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/server"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/server"
 )
 
 // GetTestProfile will return a profile for testing.

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // DeploymentConfig is the API message for deployment configurations.

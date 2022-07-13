@@ -3,7 +3,7 @@ package mysql
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/advisor"
+	"github.com/youzi-1122/bytebase/plugin/advisor"
 )
 
 func TestWhereRequirement(t *testing.T) {

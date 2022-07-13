@@ -12,9 +12,9 @@ import (
 	// init() in pgx/v4/stdlib will register it's pgx driver
 	_ "github.com/jackc/pgx/v4/stdlib"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 )
 
 var (
@@ -224,7 +224,7 @@ func (driver *Driver) Execute(ctx context.Context, statement string) error {
 	f := func(stmt string) error {
 		stmt = strings.TrimLeft(stmt, " \t")
 		// We don't use transaction for creating / altering databases in Postgres.
-		// https://github.com/bytebase/bytebase/issues/202
+		// https://github.com/youzi-1122/bytebase/issues/202
 		if strings.HasPrefix(stmt, "CREATE DATABASE ") {
 			databases, err := driver.getDatabases()
 			if err != nil {

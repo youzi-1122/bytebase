@@ -1,8 +1,8 @@
 package pg
 
 import (
-	"github.com/bytebase/bytebase/plugin/parser"
-	"github.com/bytebase/bytebase/plugin/parser/ast"
+	"github.com/youzi-1122/bytebase/plugin/parser"
+	"github.com/youzi-1122/bytebase/plugin/parser/ast"
 	pgquery "github.com/pganalyze/pg_query_go/v2"
 )
 

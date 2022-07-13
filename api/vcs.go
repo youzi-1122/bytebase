@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/bytebase/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // VCS is the API message for a VCS (Version Control System).

@@ -10,34 +10,34 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/server"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/server"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 
 	// Register clickhouse driver.
-	_ "github.com/bytebase/bytebase/plugin/db/clickhouse"
+	_ "github.com/youzi-1122/bytebase/plugin/db/clickhouse"
 	// Register mysql driver.
-	_ "github.com/bytebase/bytebase/plugin/db/mysql"
+	_ "github.com/youzi-1122/bytebase/plugin/db/mysql"
 	// Register postgres driver.
-	_ "github.com/bytebase/bytebase/plugin/db/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/db/pg"
 	// Register snowflake driver.
-	_ "github.com/bytebase/bytebase/plugin/db/snowflake"
+	_ "github.com/youzi-1122/bytebase/plugin/db/snowflake"
 	// Register sqlite driver.
-	_ "github.com/bytebase/bytebase/plugin/db/sqlite"
+	_ "github.com/youzi-1122/bytebase/plugin/db/sqlite"
 
 	// Register pingcap parser driver.
 	_ "github.com/pingcap/tidb/types/parser_driver"
 	// Register fake advisor.
-	_ "github.com/bytebase/bytebase/plugin/advisor/fake"
+	_ "github.com/youzi-1122/bytebase/plugin/advisor/fake"
 	// Register mysql advisor.
-	_ "github.com/bytebase/bytebase/plugin/advisor/mysql"
+	_ "github.com/youzi-1122/bytebase/plugin/advisor/mysql"
 	// Register postgresql advisor.
-	_ "github.com/bytebase/bytebase/plugin/advisor/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/advisor/pg"
 
 	// Register postgres parser driver
-	_ "github.com/bytebase/bytebase/plugin/parser/engine/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/parser/engine/pg"
 )
 
 // -----------------------------------Global constant BEGIN----------------------------------------

@@ -7,7 +7,7 @@ import (
 	"log"
 	"regexp"
 
-	"github.com/bytebase/bytebase/plugin/advisor/catalog"
+	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 )
 
 // How to add a schema review rule:

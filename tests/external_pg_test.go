@@ -7,8 +7,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/resources/postgres"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/resources/postgres"
 	"github.com/stretchr/testify/require"
 )
 

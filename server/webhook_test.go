@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bytebase/bytebase/plugin/vcs/gitlab"
+	"github.com/youzi-1122/bytebase/plugin/vcs/gitlab"
 	"github.com/stretchr/testify/assert"
 )
 

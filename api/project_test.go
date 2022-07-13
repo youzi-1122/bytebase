@@ -3,7 +3,7 @@ package api
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 	"github.com/stretchr/testify/require"
 )
 

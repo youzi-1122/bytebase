@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // Type is the type of a VCS.

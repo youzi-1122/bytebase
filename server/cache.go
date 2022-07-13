@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	"github.com/VictoriaMetrics/fastcache"
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 var (

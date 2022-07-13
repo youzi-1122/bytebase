@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/blang/semver/v4"
-	"github.com/bytebase/bytebase/common"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/common"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/db"
 	"go.uber.org/zap"
 )
 
@@ -161,7 +161,7 @@ func ExecuteMigration(ctx context.Context, executor MigrationExecutor, m *db.Mig
 	// Phase 3 - Executing migration
 	// Branch migration type always has empty sql.
 	// Baseline migration type could has non-empty sql but will not execute, except for CreateDatabase.
-	// https://github.com/bytebase/bytebase/issues/394
+	// https://github.com/youzi-1122/bytebase/issues/394
 	doMigrate := true
 	if statement == "" {
 		doMigrate = false

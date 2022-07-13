@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 // ScheduleNextTaskIfNeeded tries to schedule the next task if needed.

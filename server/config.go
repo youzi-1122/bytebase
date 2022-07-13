@@ -3,7 +3,7 @@ package server
 import (
 	"time"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 const (

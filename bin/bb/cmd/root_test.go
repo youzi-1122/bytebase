@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/common/log"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/go-cmp/cmp"
 	"github.com/spf13/cobra"

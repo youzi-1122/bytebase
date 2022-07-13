@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 // ProjectRoleProvider is the role provider for a user in projects.

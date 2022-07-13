@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db"
 )
 
 // Instance is the API message for an instance.

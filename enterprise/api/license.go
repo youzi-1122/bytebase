@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
+	"github.com/youzi-1122/bytebase/api"
 )
 
 // validPlans is a string array of valid plan types.

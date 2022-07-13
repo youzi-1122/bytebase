@@ -13,14 +13,14 @@ import (
 	"time"
 
 	"github.com/blang/semver/v4"
-	"github.com/bytebase/bytebase/common/log"
-	dbdriver "github.com/bytebase/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/common/log"
+	dbdriver "github.com/youzi-1122/bytebase/plugin/db"
 	"github.com/pkg/errors"
 
 	// Register postgres driver.
-	_ "github.com/bytebase/bytebase/plugin/db/pg"
+	_ "github.com/youzi-1122/bytebase/plugin/db/pg"
 
-	"github.com/bytebase/bytebase/common"
+	"github.com/youzi-1122/bytebase/common"
 )
 
 const (
@@ -144,13 +144,13 @@ func (db *DB) Open(ctx context.Context) (err error) {
 				return err
 			}
 			// This migrates the CREATE DATABASE record to semantic version format.
-			// https://github.com/bytebase/bytebase/blob/release/v1.0.2/store/pg_engine.go#L251
+			// https://github.com/youzi-1122/bytebase/blob/release/v1.0.2/store/pg_engine.go#L251
 			// This 1.0.0 should correspond to 1.0/0000__initial_schema.sql.
 			if _, err := db.ExecContext(ctx, "UPDATE migration_history SET version = '0001.0000.0000-20210113000000' WHERE id = 1 AND version = '10000';"); err != nil {
 				return err
 			}
 			// This migrates the initial schema migration to semantic version format.
-			// https://github.com/bytebase/bytebase/blob/release/v1.0.2/store/pg_engine.go#L295
+			// https://github.com/youzi-1122/bytebase/blob/release/v1.0.2/store/pg_engine.go#L295
 			// This 1.0.1 should correspond to 1.0/0001__initial_data.sql.
 			if _, err := db.ExecContext(ctx, "UPDATE migration_history SET version = '0001.0000.0001-20210113000001' WHERE id = 2 AND version = '10001';"); err != nil {
 				return err
@@ -279,7 +279,7 @@ const (
 // We prepend each migration file with version = xxx; Each migration
 // file run in a transaction to prevent partial migrations.
 //
-// The procedure follows https://github.com/bytebase/bytebase/blob/main/docs/schema-update-guide.md.
+// The procedure follows https://github.com/youzi-1122/bytebase/blob/main/docs/schema-update-guide.md.
 func migrate(ctx context.Context, d dbdriver.Driver, curVer *semver.Version, mode common.ReleaseMode, strictDb bool, serverVersion, databaseName string) error {
 	log.Info("Apply database migration if needed...")
 	if curVer == nil {

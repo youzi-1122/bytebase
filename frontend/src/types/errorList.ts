@@ -1,6 +1,6 @@
 import { ErrorMeta } from ".";
 
-// List should be kept in sync with https://github.com/bytebase/bytebase.com/blob/main/docs/error-code.md
+// List should be kept in sync with https://github.com/youzi-1122/bytebase.com/blob/main/docs/error-code.md
 // Bytebase uses this list to display link to the doc site.
 export const ERROR_LIST: ErrorMeta[] = [
   {

@@ -13,12 +13,12 @@ const docTemplate = `{
         "termsOfService": "https://www.bytebase.com/terms",
         "contact": {
             "name": "API Support",
-            "url": "https://github.com/bytebase/bytebase/",
+            "url": "https://github.com/youzi-1122/bytebase/",
             "email": "support@bytebase.com"
         },
         "license": {
             "name": "MIT",
-            "url": "https://github.com/bytebase/bytebase/blob/main/LICENSE"
+            "url": "https://github.com/youzi-1122/bytebase/blob/main/LICENSE"
         },
         "version": "{{.Version}}"
     },

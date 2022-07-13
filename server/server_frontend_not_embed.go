@@ -6,7 +6,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/bytebase/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/common/log"
 	"github.com/labstack/echo/v4"
 )
 

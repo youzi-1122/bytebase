@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/common/log"
-	"github.com/bytebase/bytebase/plugin/webhook"
-	"github.com/bytebase/bytebase/store"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/common/log"
+	"github.com/youzi-1122/bytebase/plugin/webhook"
+	"github.com/youzi-1122/bytebase/store"
 
 	"github.com/pkg/errors"
 	"go.uber.org/zap"

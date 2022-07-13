@@ -4,8 +4,8 @@ import (
 	"context"
 	"sort"
 
-	"github.com/bytebase/bytebase/api"
-	"github.com/bytebase/bytebase/plugin/advisor/catalog"
+	"github.com/youzi-1122/bytebase/api"
+	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 )
 
 var (

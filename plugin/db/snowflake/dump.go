@@ -8,7 +8,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 )
 
 // Dump and restore

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/db/util"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/db/util"
 )
 
 var (
@@ -17,7 +17,7 @@ var (
 		// Skip our internal "bytebase" database
 		"bytebase": true,
 		// Skip internal databases from cloud service providers
-		// see https://github.com/bytebase/bytebase/issues/30
+		// see https://github.com/youzi-1122/bytebase/issues/30
 		// aws
 		"rdsadmin": true,
 		// gcp
@@ -501,7 +501,7 @@ func getViews(txn *sql.Tx) ([]*viewSchema, error) {
 			return nil, err
 		}
 		// Return error on NULL view definition.
-		// https://github.com/bytebase/bytebase/issues/343
+		// https://github.com/youzi-1122/bytebase/issues/343
 		if !def.Valid {
 			return nil, fmt.Errorf("schema %q view %q has empty definition; please check whether proper privileges have been granted to Bytebase", view.schemaName, view.name)
 		}

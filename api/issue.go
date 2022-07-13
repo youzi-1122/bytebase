@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/bytebase/bytebase/plugin/db"
-	"github.com/bytebase/bytebase/plugin/vcs"
+	"github.com/youzi-1122/bytebase/plugin/db"
+	"github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // IssueStatus is the status of an issue.

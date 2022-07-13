@@ -3,8 +3,8 @@ package pg
 import (
 	"testing"
 
-	"github.com/bytebase/bytebase/plugin/parser"
-	"github.com/bytebase/bytebase/plugin/parser/ast"
+	"github.com/youzi-1122/bytebase/plugin/parser"
+	"github.com/youzi-1122/bytebase/plugin/parser/ast"
 	"github.com/stretchr/testify/require"
 )
 
