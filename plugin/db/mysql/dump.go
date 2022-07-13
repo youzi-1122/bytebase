@@ -380,7 +380,7 @@ func getTableStmt(txn *sql.Tx, dbName, tblName, tblType string) (string, error) 
 			}
 			return "", err
 		}
-		return fmt.Sprintf(tableStmtFmt, tblName, stmt), nil
+		return fmt.Sprintf(tableStmtFmt,tblName, tblName, stmt), nil
 	case viewTableType:
 		// This differs from mysqldump as it includes.
 		query := fmt.Sprintf("SHOW CREATE VIEW `%s`.`%s`;", dbName, tblName)
