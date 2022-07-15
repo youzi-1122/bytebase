@@ -4,9 +4,9 @@ package advisor
 
 import (
 	"fmt"
+	catalog2 "github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"sync"
 
-	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"go.uber.org/zap/zapcore"
 )
 
@@ -141,7 +141,7 @@ type Context struct {
 
 	// Schema review rule special fields.
 	Rule    *SchemaReviewRule
-	Catalog catalog.Catalog
+	Catalog catalog2.Catalog
 }
 
 // Advisor is the interface for advisor.

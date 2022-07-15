@@ -2,9 +2,8 @@ package api
 
 import (
 	"encoding/json"
-
-	"github.com/youzi-1122/bytebase/plugin/advisor"
-	"github.com/youzi-1122/bytebase/plugin/vcs"
+	advisor2 "github.com/youzi-1122/bytebase/plugin/advisor"
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // ActivityType is the type for an activity.
@@ -178,7 +177,7 @@ type ActivityMemberActivateDeactivatePayload struct {
 
 // ActivityProjectRepositoryPushPayload is the API message payloads for pushing repositories.
 type ActivityProjectRepositoryPushPayload struct {
-	VCSPushEvent vcs.PushEvent `json:"pushEvent"`
+	VCSPushEvent vcs2.PushEvent `json:"pushEvent"`
 	// Used by activity table to display info without paying the join cost
 	// IssueID/IssueName only exist if the push event leads to the issue creation.
 	IssueID   int    `json:"issueId,omitempty"`
@@ -195,12 +194,12 @@ type ActivityProjectDatabaseTransferPayload struct {
 // ActivitySQLEditorQueryPayload is the API message payloads for the executed query info.
 type ActivitySQLEditorQueryPayload struct {
 	// Used by activity table to display info without paying the join cost
-	Statement    string           `json:"statement"`
-	DurationNs   int64            `json:"durationNs"`
-	InstanceName string           `json:"instanceName"`
-	DatabaseName string           `json:"databaseName"`
-	Error        string           `json:"error"`
-	AdviceList   []advisor.Advice `json:"adviceList"`
+	Statement    string            `json:"statement"`
+	DurationNs   int64             `json:"durationNs"`
+	InstanceName string            `json:"instanceName"`
+	DatabaseName string            `json:"databaseName"`
+	Error        string            `json:"error"`
+	AdviceList   []advisor2.Advice `json:"adviceList"`
 }
 
 // Activity is the API message for an activity.

@@ -3,10 +3,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	common2 "github.com/youzi-1122/bytebase/common"
 	"regexp"
 	"strings"
-
-	"github.com/youzi-1122/bytebase/common"
 )
 
 // DefaultProjectID is the ID for the default project.
@@ -151,14 +150,14 @@ var (
 
 // ValidateRepositoryFilePathTemplate validates the repository file path template.
 func ValidateRepositoryFilePathTemplate(filePathTemplate string, tenantMode ProjectTenantMode) error {
-	tokens, _ := common.ParseTemplateTokens(filePathTemplate)
+	tokens, _ := common2.ParseTemplateTokens(filePathTemplate)
 	tokenMap := make(map[string]bool)
 	for _, token := range tokens {
 		tokenMap[token] = true
 	}
 	if tenantMode == TenantModeTenant {
 		if _, ok := tokenMap[EnvironmentToken]; ok {
-			return &common.Error{Code: common.Invalid, Err: fmt.Errorf("%q is not allowed in the template for projects in tenant mode", EnvironmentToken)}
+			return &common2.Error{Code: common2.Invalid, Err: fmt.Errorf("%q is not allowed in the template for projects in tenant mode", EnvironmentToken)}
 		}
 	}
 
@@ -182,14 +181,14 @@ func ValidateRepositorySchemaPathTemplate(schemaPathTemplate string, tenantMode 
 	if schemaPathTemplate == "" {
 		return nil
 	}
-	tokens, _ := common.ParseTemplateTokens(schemaPathTemplate)
+	tokens, _ := common2.ParseTemplateTokens(schemaPathTemplate)
 	tokenMap := make(map[string]bool)
 	for _, token := range tokens {
 		tokenMap[token] = true
 	}
 	if tenantMode == TenantModeTenant {
 		if _, ok := tokenMap[EnvironmentToken]; ok {
-			return &common.Error{Code: common.Invalid, Err: fmt.Errorf("%q is not allowed in the template for projects in tenant mode", EnvironmentToken)}
+			return &common2.Error{Code: common2.Invalid, Err: fmt.Errorf("%q is not allowed in the template for projects in tenant mode", EnvironmentToken)}
 		}
 	}
 
@@ -213,7 +212,7 @@ func ValidateProjectDBNameTemplate(template string) error {
 	if template == "" {
 		return nil
 	}
-	tokens, _ := common.ParseTemplateTokens(template)
+	tokens, _ := common2.ParseTemplateTokens(template)
 	// Must contain {{DB_NAME}}
 	hasDBName := false
 	for _, token := range tokens {
@@ -233,7 +232,7 @@ func ValidateProjectDBNameTemplate(template string) error {
 // FormatTemplate formats the template by using the tokens as a replacement mapping.
 // Note that the returned (modified) template should not be used as a regexp.
 func FormatTemplate(template string, tokens map[string]string) (string, error) {
-	keys, _ := common.ParseTemplateTokens(template)
+	keys, _ := common2.ParseTemplateTokens(template)
 	for _, key := range keys {
 		if _, ok := tokens[key]; !ok {
 			return "", fmt.Errorf("token %q not found", key)
@@ -246,7 +245,7 @@ func FormatTemplate(template string, tokens map[string]string) (string, error) {
 // Similar to FormatTemplate, except that it will also escape special regexp characters in the delimiters
 // of the template string, which will produce the correct regexp string.
 func formatTemplateRegexp(template string, tokens map[string]string) (string, error) {
-	keys, delimiters := common.ParseTemplateTokens(template)
+	keys, delimiters := common2.ParseTemplateTokens(template)
 	for _, key := range keys {
 		if _, ok := tokens[key]; !ok {
 			return "", fmt.Errorf("token %q not found", key)

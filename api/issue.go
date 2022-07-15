@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/youzi-1122/bytebase/plugin/db"
-	"github.com/youzi-1122/bytebase/plugin/vcs"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // IssueStatus is the status of an issue.
@@ -154,12 +154,12 @@ type UpdateSchemaDetail struct {
 // UpdateSchemaContext is the issue create context for updating database schema.
 type UpdateSchemaContext struct {
 	// MigrationType is the type of a migration.
-	MigrationType db.MigrationType `json:"migrationType"`
+	MigrationType db2.MigrationType `json:"migrationType"`
 	// DetailList is the details of schema update.
 	// When a project is in tenant mode, there should be one item in the list.
 	DetailList []*UpdateSchemaDetail `json:"updateSchemaDetailList"`
 	// VCSPushEvent is the event information for VCS push.
-	VCSPushEvent *vcs.PushEvent
+	VCSPushEvent *vcs2.PushEvent
 }
 
 // UpdateSchemaGhostDetail is the detail of updating database schema using gh-ost
@@ -181,7 +181,7 @@ type UpdateSchemaGhostContext struct {
 	// When a project is in tenant mode, there should be one item in the list.
 	DetailList []*UpdateSchemaGhostDetail `json:"updateSchemaGhostDetailList"`
 	// VCSPushEvent is the event information for VCS push.
-	VCSPushEvent *vcs.PushEvent
+	VCSPushEvent *vcs2.PushEvent
 }
 
 // PITRContext is the issue create context for performing a PITR in a database.

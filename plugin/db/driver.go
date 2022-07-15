@@ -5,12 +5,11 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
 	"io"
 	"regexp"
 	"strings"
 	"sync"
-
-	"github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // Type is the type of a database.
@@ -202,7 +201,7 @@ const (
 
 // MigrationInfoPayload is the API message for migration info payload.
 type MigrationInfoPayload struct {
-	VCSPushEvent *vcs.PushEvent `json:"pushEvent,omitempty"`
+	VCSPushEvent *vcs2.PushEvent `json:"pushEvent,omitempty"`
 }
 
 // MigrationInfo is the API message for migration info.
@@ -412,7 +411,7 @@ type Driver interface {
 	// Dump the database, if dbName is empty, then dump all databases.
 	// The returned string is the JSON encoded metadata for the logical dump.
 	// For MySQL, the payload contains the binlog filename and position when the dump is generated.
-	Dump(ctx context.Context, database string, out io.Writer, schemaOnly bool) (string, error)
+	Dump(ctx context.Context, database string, out io.Writer, schemaOnly bool, query string, tableName ...string) (string, error)
 	// Restore the database from sc, which is a full backup.
 	Restore(ctx context.Context, sc *bufio.Scanner) error
 	// RestoreTx restores the database from sc in the given transaction.

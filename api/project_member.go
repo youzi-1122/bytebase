@@ -2,8 +2,7 @@ package api
 
 import (
 	"encoding/json"
-
-	"github.com/youzi-1122/bytebase/common"
+	common2 "github.com/youzi-1122/bytebase/common"
 )
 
 // ProjectRoleProvider is the role provider for a user in projects.
@@ -56,7 +55,7 @@ type ProjectMemberCreate struct {
 	ProjectID int
 
 	// Domain specific fields
-	Role         common.ProjectRole  `jsonapi:"attr,role"`
+	Role         common2.ProjectRole `jsonapi:"attr,role"`
 	PrincipalID  int                 `jsonapi:"attr,principalId"`
 	RoleProvider ProjectRoleProvider `jsonapi:"attr,roleProvider"`
 	Payload      string              `jsonapi:"attr,payload"`

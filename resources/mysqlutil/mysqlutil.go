@@ -3,14 +3,13 @@ package mysqlutil
 import (
 	"bytes"
 	"fmt"
+	utils2 "github.com/youzi-1122/bytebase/resources/utils"
 	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
 	"runtime"
 	"strings"
-
-	"github.com/youzi-1122/bytebase/resources/utils"
 )
 
 type binaryName string
@@ -124,7 +123,7 @@ func install(resourceDir, mysqlutilDir, tarName, version string) error {
 	}
 	defer f.Close()
 
-	if err := utils.ExtractTarGz(f, tmpDir); err != nil {
+	if err := utils2.ExtractTarGz(f, tmpDir); err != nil {
 		return fmt.Errorf("failed to extract tar.gz file, error: %w", err)
 	}
 

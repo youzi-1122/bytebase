@@ -4,15 +4,15 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	common2 "github.com/youzi-1122/bytebase/common"
+	log2 "github.com/youzi-1122/bytebase/common/log"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
+	util2 "github.com/youzi-1122/bytebase/plugin/db/util"
 	"strings"
 
 	// embed will embeds the migration schema.
 	_ "embed"
 
-	"github.com/youzi-1122/bytebase/common"
-	"github.com/youzi-1122/bytebase/common/log"
-	"github.com/youzi-1122/bytebase/plugin/db"
-	"github.com/youzi-1122/bytebase/plugin/db/util"
 	"go.uber.org/zap"
 )
 
@@ -20,7 +20,7 @@ var (
 	//go:embed mysql_migration_schema.sql
 	migrationSchema string
 
-	_ util.MigrationExecutor = (*Driver)(nil)
+	_ util2.MigrationExecutor = (*Driver)(nil)
 )
 
 // NeedsSetupMigration returns whether it needs to setup migration.
@@ -31,7 +31,7 @@ func (driver *Driver) NeedsSetupMigration(ctx context.Context) (bool, error) {
 		FROM information_schema.TABLES
 		WHERE TABLE_SCHEMA = 'bytebase' AND TABLE_NAME = 'migration_history'
 		`
-	return util.NeedsSetupMigrationSchema(ctx, driver.db, query)
+	return util2.NeedsSetupMigrationSchema(ctx, driver.db, query)
 }
 
 // SetupMigrationIfNeeded sets up migration if needed.
@@ -42,7 +42,7 @@ func (driver *Driver) SetupMigrationIfNeeded(ctx context.Context) error {
 	}
 
 	if setup {
-		log.Info("Bytebase migration schema not found, creating schema...",
+		log2.Info("Bytebase migration schema not found, creating schema...",
 			zap.String("environment", driver.connectionCtx.EnvironmentName),
 			zap.String("database", driver.connectionCtx.InstanceName),
 		)
@@ -50,14 +50,14 @@ func (driver *Driver) SetupMigrationIfNeeded(ctx context.Context) error {
 		// 1. For MySQL, each DDL is in its own transaction. See https://dev.mysql.com/doc/refman/8.0/en/implicit-commit.html
 		// 2. For TiDB, the created database/table is not visible to the followup statements from the same transaction.
 		if _, err := driver.db.ExecContext(ctx, migrationSchema); err != nil {
-			log.Error("Failed to initialize migration schema.",
+			log2.Error("Failed to initialize migration schema.",
 				zap.Error(err),
 				zap.String("environment", driver.connectionCtx.EnvironmentName),
 				zap.String("database", driver.connectionCtx.InstanceName),
 			)
-			return util.FormatErrorWithQuery(err, migrationSchema)
+			return util2.FormatErrorWithQuery(err, migrationSchema)
 		}
-		log.Info("Successfully created migration schema.",
+		log2.Info("Successfully created migration schema.",
 			zap.String("environment", driver.connectionCtx.EnvironmentName),
 			zap.String("database", driver.connectionCtx.InstanceName),
 		)
@@ -81,9 +81,9 @@ func (driver Driver) FindLargestVersionSinceBaseline(ctx context.Context, tx *sq
 		namespace, largestBaselineSequence,
 	).Scan(&version); err != nil {
 		if err == sql.ErrNoRows {
-			return nil, common.FormatDBErrorEmptyRowWithQuery(getLargestVersionSinceLastBaselineQuery)
+			return nil, common2.FormatDBErrorEmptyRowWithQuery(getLargestVersionSinceLastBaselineQuery)
 		}
-		return nil, util.FormatErrorWithQuery(err, getLargestVersionSinceLastBaselineQuery)
+		return nil, util2.FormatErrorWithQuery(err, getLargestVersionSinceLastBaselineQuery)
 	}
 	if version.Valid {
 		return &version.String, nil
@@ -97,16 +97,16 @@ func (Driver) FindLargestSequence(ctx context.Context, tx *sql.Tx, namespace str
 		SELECT MAX(sequence) FROM bytebase.migration_history
 		WHERE namespace = ?`
 	if baseline {
-		findLargestSequenceQuery = fmt.Sprintf("%s AND (type = '%s' OR type = '%s')", findLargestSequenceQuery, db.Baseline, db.Branch)
+		findLargestSequenceQuery = fmt.Sprintf("%s AND (type = '%s' OR type = '%s')", findLargestSequenceQuery, db2.Baseline, db2.Branch)
 	}
 	var sequence sql.NullInt32
 	if err := tx.QueryRowContext(ctx, findLargestSequenceQuery,
 		namespace,
 	).Scan(&sequence); err != nil {
 		if err == sql.ErrNoRows {
-			return -1, common.FormatDBErrorEmptyRowWithQuery(findLargestSequenceQuery)
+			return -1, common2.FormatDBErrorEmptyRowWithQuery(findLargestSequenceQuery)
 		}
-		return -1, util.FormatErrorWithQuery(err, findLargestSequenceQuery)
+		return -1, util2.FormatErrorWithQuery(err, findLargestSequenceQuery)
 	}
 	if sequence.Valid {
 		return int(sequence.Int32), nil
@@ -116,7 +116,7 @@ func (Driver) FindLargestSequence(ctx context.Context, tx *sql.Tx, namespace str
 }
 
 // InsertPendingHistory will insert the migration record with pending status and return the inserted ID.
-func (Driver) InsertPendingHistory(ctx context.Context, tx *sql.Tx, sequence int, prevSchema string, m *db.MigrationInfo, storedVersion, statement string) (int64, error) {
+func (Driver) InsertPendingHistory(ctx context.Context, tx *sql.Tx, sequence int, prevSchema string, m *db2.MigrationInfo, storedVersion, statement string) (int64, error) {
 	const insertHistoryQuery = `
 		INSERT INTO bytebase.migration_history (
 			created_by,
@@ -148,7 +148,7 @@ func (Driver) InsertPendingHistory(ctx context.Context, tx *sql.Tx, sequence int
 		sequence,
 		m.Source,
 		m.Type,
-		db.Pending,
+		db2.Pending,
 		storedVersion,
 		m.Description,
 		statement,
@@ -158,12 +158,12 @@ func (Driver) InsertPendingHistory(ctx context.Context, tx *sql.Tx, sequence int
 		m.Payload,
 	)
 	if err != nil {
-		return int64(0), util.FormatErrorWithQuery(err, insertHistoryQuery)
+		return int64(0), util2.FormatErrorWithQuery(err, insertHistoryQuery)
 	}
 
 	insertedID, err := res.LastInsertId()
 	if err != nil {
-		return int64(0), util.FormatErrorWithQuery(err, insertHistoryQuery)
+		return int64(0), util2.FormatErrorWithQuery(err, insertHistoryQuery)
 	}
 	return insertedID, nil
 }
@@ -179,7 +179,7 @@ func (Driver) UpdateHistoryAsDone(ctx context.Context, tx *sql.Tx, migrationDura
 		` + "`schema` = ?" + `
 		WHERE id = ?
 		`
-	_, err := tx.ExecContext(ctx, updateHistoryAsDoneQuery, db.Done, migrationDurationNs, updatedSchema, insertedID)
+	_, err := tx.ExecContext(ctx, updateHistoryAsDoneQuery, db2.Done, migrationDurationNs, updatedSchema, insertedID)
 	return err
 }
 
@@ -193,17 +193,17 @@ func (Driver) UpdateHistoryAsFailed(ctx context.Context, tx *sql.Tx, migrationDu
 			execution_duration_ns = ?
 		WHERE id = ?
 		`
-	_, err := tx.ExecContext(ctx, updateHistoryAsFailedQuery, db.Failed, migrationDurationNs, insertedID)
+	_, err := tx.ExecContext(ctx, updateHistoryAsFailedQuery, db2.Failed, migrationDurationNs, insertedID)
 	return err
 }
 
 // ExecuteMigration will execute the migration.
-func (driver *Driver) ExecuteMigration(ctx context.Context, m *db.MigrationInfo, statement string) (int64, string, error) {
-	return util.ExecuteMigration(ctx, driver, m, statement, db.BytebaseDatabase)
+func (driver *Driver) ExecuteMigration(ctx context.Context, m *db2.MigrationInfo, statement string) (int64, string, error) {
+	return util2.ExecuteMigration(ctx, driver, m, statement, db2.BytebaseDatabase)
 }
 
 // FindMigrationHistoryList finds the migration history.
-func (driver *Driver) FindMigrationHistoryList(ctx context.Context, find *db.MigrationHistoryFind) ([]*db.MigrationHistory, error) {
+func (driver *Driver) FindMigrationHistoryList(ctx context.Context, find *db2.MigrationHistoryFind) ([]*db2.MigrationHistory, error) {
 	baseQuery := `
 	SELECT
 		id,
@@ -235,7 +235,7 @@ func (driver *Driver) FindMigrationHistoryList(ctx context.Context, find *db.Mig
 	}
 	if v := find.Version; v != nil {
 		// TODO(d): support semantic versioning.
-		storedVersion, err := util.ToStoredVersion(false, *v, "")
+		storedVersion, err := util2.ToStoredVersion(false, *v, "")
 		if err != nil {
 			return nil, err
 		}
@@ -245,13 +245,13 @@ func (driver *Driver) FindMigrationHistoryList(ctx context.Context, find *db.Mig
 		paramNames, params = append(paramNames, "source"), append(params, *v)
 	}
 	var query = baseQuery +
-		db.FormatParamNameInQuestionMark(paramNames) +
+		db2.FormatParamNameInQuestionMark(paramNames) +
 		`ORDER BY created_ts DESC`
 	if v := find.Limit; v != nil {
 		query += fmt.Sprintf(" LIMIT %d", *v)
 	}
 	// TODO(zp):  modified param database of `util.FindMigrationHistoryList` when we support *mysql* database level.
-	history, err := util.FindMigrationHistoryList(ctx, query, params, driver, db.BytebaseDatabase, find, baseQuery)
+	history, err := util2.FindMigrationHistoryList(ctx, query, params, driver, db2.BytebaseDatabase, find, baseQuery)
 	// TODO(d): remove this block once all existing customers all migrated to semantic versioning.
 	if err != nil {
 		if !strings.Contains(err.Error(), "invalid stored version") {
@@ -260,13 +260,13 @@ func (driver *Driver) FindMigrationHistoryList(ctx context.Context, find *db.Mig
 		if err := driver.updateMigrationHistoryStorageVersion(ctx); err != nil {
 			return nil, err
 		}
-		return util.FindMigrationHistoryList(ctx, query, params, driver, db.BytebaseDatabase, find, baseQuery)
+		return util2.FindMigrationHistoryList(ctx, query, params, driver, db2.BytebaseDatabase, find, baseQuery)
 	}
 	return history, err
 }
 
 func (driver *Driver) updateMigrationHistoryStorageVersion(ctx context.Context) error {
-	sqldb, err := driver.GetDbConnection(ctx, db.BytebaseDatabase)
+	sqldb, err := driver.GetDbConnection(ctx, db2.BytebaseDatabase)
 	if err != nil {
 		return err
 	}
@@ -289,7 +289,7 @@ func (driver *Driver) updateMigrationHistoryStorageVersion(ctx context.Context) 
 		vers = append(vers, v)
 	}
 	if err := rows.Err(); err != nil {
-		return util.FormatErrorWithQuery(err, query)
+		return util2.FormatErrorWithQuery(err, query)
 	}
 
 	updateQuery := `
@@ -300,10 +300,10 @@ func (driver *Driver) updateMigrationHistoryStorageVersion(ctx context.Context) 
 		WHERE id = ? AND version = ?
 	`
 	for _, v := range vers {
-		if strings.HasPrefix(v.version, util.NonSemanticPrefix) {
+		if strings.HasPrefix(v.version, util2.NonSemanticPrefix) {
 			continue
 		}
-		newVersion := fmt.Sprintf("%s%s", util.NonSemanticPrefix, v.version)
+		newVersion := fmt.Sprintf("%s%s", util2.NonSemanticPrefix, v.version)
 		if _, err := sqldb.Exec(updateQuery, newVersion, v.id, v.version); err != nil {
 			return err
 		}

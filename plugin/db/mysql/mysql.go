@@ -4,13 +4,13 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	common2 "github.com/youzi-1122/bytebase/common"
+	log2 "github.com/youzi-1122/bytebase/common/log"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
+	util2 "github.com/youzi-1122/bytebase/plugin/db/util"
+	mysqlutil2 "github.com/youzi-1122/bytebase/resources/mysqlutil"
 	"strings"
 
-	"github.com/youzi-1122/bytebase/common"
-	"github.com/youzi-1122/bytebase/common/log"
-	"github.com/youzi-1122/bytebase/plugin/db"
-	"github.com/youzi-1122/bytebase/plugin/db/util"
-	"github.com/youzi-1122/bytebase/resources/mysqlutil"
 	"github.com/go-sql-driver/mysql"
 	"go.uber.org/zap"
 )
@@ -19,30 +19,30 @@ var (
 	baseTableType = "BASE TABLE"
 	viewTableType = "VIEW"
 
-	_ db.Driver = (*Driver)(nil)
+	_ db2.Driver = (*Driver)(nil)
 )
 
 func init() {
-	db.Register(db.MySQL, newDriver)
-	db.Register(db.TiDB, newDriver)
+	db2.Register(db2.MySQL, newDriver)
+	db2.Register(db2.TiDB, newDriver)
 }
 
 // Driver is the MySQL driver.
 type Driver struct {
-	connectionCtx db.ConnectionContext
-	connCfg       db.ConnectionConfig
-	dbType        db.Type
-	mysqlutil     mysqlutil.Instance
+	connectionCtx db2.ConnectionContext
+	connCfg       db2.ConnectionConfig
+	dbType        db2.Type
+	mysqlutil     mysqlutil2.Instance
 	binlogDir     string
 	db            *sql.DB
 }
 
-func newDriver(config db.DriverConfig) db.Driver {
+func newDriver(config db2.DriverConfig) db2.Driver {
 	return &Driver{}
 }
 
 // Open opens a MySQL driver.
-func (driver *Driver) Open(ctx context.Context, dbType db.Type, connCfg db.ConnectionConfig, connCtx db.ConnectionContext) (db.Driver, error) {
+func (driver *Driver) Open(ctx context.Context, dbType db2.Type, connCfg db2.ConnectionConfig, connCtx db2.ConnectionContext) (db2.Driver, error) {
 	protocol := "tcp"
 	if strings.HasPrefix(connCfg.Host, "/") {
 		protocol = "unix"
@@ -53,7 +53,7 @@ func (driver *Driver) Open(ctx context.Context, dbType db.Type, connCfg db.Conne
 	port := connCfg.Port
 	if port == "" {
 		port = "3306"
-		if dbType == db.TiDB {
+		if dbType == db2.TiDB {
 			port = "4000"
 		}
 	}
@@ -78,7 +78,7 @@ func (driver *Driver) Open(ctx context.Context, dbType db.Type, connCfg db.Conne
 		defer mysql.DeregisterTLSConfig(tlsKey)
 		dsn += fmt.Sprintf("?tls=%s", tlsKey)
 	}
-	log.Debug("Opening MySQL driver",
+	log2.Debug("Opening MySQL driver",
 		zap.String("dsn", loggedDSN),
 		zap.String("environment", connCtx.EnvironmentName),
 		zap.String("database", connCtx.InstanceName),
@@ -128,7 +128,7 @@ func getDatabases(ctx context.Context, txn *sql.Tx) ([]string, error) {
 		dbNames = append(dbNames, name)
 	}
 	if err := rows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, query)
+		return nil, util2.FormatErrorWithQuery(err, query)
 	}
 	return dbNames, nil
 }
@@ -139,9 +139,9 @@ func (driver *Driver) GetVersion(ctx context.Context) (string, error) {
 	var version string
 	if err := driver.db.QueryRowContext(ctx, query).Scan(&version); err != nil {
 		if err == sql.ErrNoRows {
-			return "", common.FormatDBErrorEmptyRowWithQuery(query)
+			return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
-		return "", util.FormatErrorWithQuery(err, query)
+		return "", util2.FormatErrorWithQuery(err, query)
 	}
 	return version, nil
 }
@@ -167,5 +167,5 @@ func (driver *Driver) Execute(ctx context.Context, statement string) error {
 
 // Query queries a SQL statement.
 func (driver *Driver) Query(ctx context.Context, statement string, limit int) ([]interface{}, error) {
-	return util.Query(ctx, driver.db, statement, limit)
+	return util2.Query(ctx, driver.db, statement, limit)
 }

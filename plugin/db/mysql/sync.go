@@ -4,10 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
+	util2 "github.com/youzi-1122/bytebase/plugin/db/util"
 	"strings"
-
-	"github.com/youzi-1122/bytebase/plugin/db"
-	"github.com/youzi-1122/bytebase/plugin/db/util"
 )
 
 var (
@@ -22,7 +21,7 @@ var (
 )
 
 // SyncInstance syncs the instance.
-func (driver *Driver) SyncInstance(ctx context.Context) (*db.InstanceMeta, error) {
+func (driver *Driver) SyncInstance(ctx context.Context) (*db2.InstanceMeta, error) {
 	// Query user info
 	userList, err := driver.getUserList(ctx)
 	if err != nil {
@@ -49,13 +48,13 @@ func (driver *Driver) SyncInstance(ctx context.Context) (*db.InstanceMeta, error
 		WHERE ` + where
 	rows, err := driver.db.QueryContext(ctx, query)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, query)
+		return nil, util2.FormatErrorWithQuery(err, query)
 	}
 	defer rows.Close()
 
-	var databaseList []db.DatabaseMeta
+	var databaseList []db2.DatabaseMeta
 	for rows.Next() {
-		var databaseMeta db.DatabaseMeta
+		var databaseMeta db2.DatabaseMeta
 		if err := rows.Scan(
 			&databaseMeta.Name,
 			&databaseMeta.CharacterSet,
@@ -69,14 +68,14 @@ func (driver *Driver) SyncInstance(ctx context.Context) (*db.InstanceMeta, error
 		return nil, err
 	}
 
-	return &db.InstanceMeta{
+	return &db2.InstanceMeta{
 		UserList:     userList,
 		DatabaseList: databaseList,
 	}, nil
 }
 
 // SyncSchema syncs the schema.
-func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([]*db.Schema, error) {
+func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([]*db2.Schema, error) {
 	// Query MySQL version
 	version, err := driver.GetVersion(ctx)
 	if err != nil {
@@ -134,18 +133,18 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 	}
 	indexRows, err := driver.db.QueryContext(ctx, indexQuery)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, indexQuery)
+		return nil, util2.FormatErrorWithQuery(err, indexQuery)
 	}
 	defer indexRows.Close()
 
 	// dbName/tableName -> indexList map
-	indexMap := make(map[string][]db.Index)
+	indexMap := make(map[string][]db2.Index)
 	for indexRows.Next() {
 		var dbName string
 		var tableName string
 		var columnName sql.NullString
 		var expression sql.NullString
-		var index db.Index
+		var index db2.Index
 		if err := indexRows.Scan(
 			&dbName,
 			&tableName,
@@ -171,11 +170,11 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		if indexList, ok := indexMap[key]; ok {
 			indexMap[key] = append(indexList, index)
 		} else {
-			indexMap[key] = []db.Index{index}
+			indexMap[key] = []db2.Index{index}
 		}
 	}
 	if err := indexRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, indexQuery)
+		return nil, util2.FormatErrorWithQuery(err, indexQuery)
 	}
 
 	// Query column info
@@ -199,18 +198,18 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 			WHERE ` + columnWhere
 	columnRows, err := driver.db.QueryContext(ctx, columnQuery)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, columnQuery)
+		return nil, util2.FormatErrorWithQuery(err, columnQuery)
 	}
 	defer columnRows.Close()
 
 	// dbName/tableName -> columnList map
-	columnMap := make(map[string][]db.Column)
+	columnMap := make(map[string][]db2.Column)
 	for columnRows.Next() {
 		var dbName string
 		var tableName string
 		var nullable string
 		var defaultStr sql.NullString
-		var column db.Column
+		var column db2.Column
 		if err := columnRows.Scan(
 			&dbName,
 			&tableName,
@@ -234,11 +233,11 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		if tableList, ok := columnMap[key]; ok {
 			columnMap[key] = append(tableList, column)
 		} else {
-			columnMap[key] = []db.Column{column}
+			columnMap[key] = []db2.Column{column}
 		}
 	}
 	if err := columnRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, columnQuery)
+		return nil, util2.FormatErrorWithQuery(err, columnQuery)
 	}
 
 	// Query table info
@@ -265,12 +264,12 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 			WHERE ` + tableWhere
 	tableRows, err := driver.db.QueryContext(ctx, tableQuery)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, tableQuery)
+		return nil, util2.FormatErrorWithQuery(err, tableQuery)
 	}
 	defer tableRows.Close()
 
 	// dbName -> tableList map
-	tableMap := make(map[string][]db.Table)
+	tableMap := make(map[string][]db2.Table)
 	type ViewInfo struct {
 		createdTs int64
 		updatedTs int64
@@ -282,7 +281,7 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		var dbName string
 		// Workaround TiDB bug https://github.com/pingcap/tidb/issues/27970
 		var tableCollation sql.NullString
-		var table db.Table
+		var table db2.Table
 		if err := tableRows.Scan(
 			&dbName,
 			&table.Name,
@@ -314,7 +313,7 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 			if tableList, ok := tableMap[dbName]; ok {
 				tableMap[dbName] = append(tableList, table)
 			} else {
-				tableMap[dbName] = []db.Table{table}
+				tableMap[dbName] = []db2.Table{table}
 			}
 		case viewTableType:
 			viewInfoMap[fmt.Sprintf("%s/%s", dbName, table.Name)] = ViewInfo{
@@ -325,7 +324,7 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		}
 	}
 	if err := tableRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, tableQuery)
+		return nil, util2.FormatErrorWithQuery(err, tableQuery)
 	}
 
 	// Query view info
@@ -342,15 +341,15 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 			WHERE ` + viewWhere
 	viewRows, err := driver.db.QueryContext(ctx, viewQuery)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, viewQuery)
+		return nil, util2.FormatErrorWithQuery(err, viewQuery)
 	}
 	defer viewRows.Close()
 
 	// dbName -> viewList map
-	viewMap := make(map[string][]db.View)
+	viewMap := make(map[string][]db2.View)
 	for viewRows.Next() {
 		var dbName string
-		var view db.View
+		var view db2.View
 		if err := viewRows.Scan(
 			&dbName,
 			&view.Name,
@@ -367,11 +366,11 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		if viewList, ok := viewMap[dbName]; ok {
 			viewMap[dbName] = append(viewList, view)
 		} else {
-			viewMap[dbName] = []db.View{view}
+			viewMap[dbName] = []db2.View{view}
 		}
 	}
 	if err := viewRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, viewQuery)
+		return nil, util2.FormatErrorWithQuery(err, viewQuery)
 	}
 
 	// Query db info
@@ -388,13 +387,13 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		WHERE ` + databaseWhere
 	databaseRows, err := driver.db.QueryContext(ctx, databaseQuery)
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, databaseQuery)
+		return nil, util2.FormatErrorWithQuery(err, databaseQuery)
 	}
 	defer databaseRows.Close()
 
-	var schemaList []*db.Schema
+	var schemaList []*db2.Schema
 	for databaseRows.Next() {
-		var schema db.Schema
+		var schema db2.Schema
 		if err := databaseRows.Scan(
 			&schema.Name,
 			&schema.CharacterSet,
@@ -412,13 +411,13 @@ func (driver *Driver) SyncSchema(ctx context.Context, databaseList ...string) ([
 		return nil, err
 	}
 	if err := databaseRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, databaseQuery)
+		return nil, util2.FormatErrorWithQuery(err, databaseQuery)
 	}
 
 	return schemaList, err
 }
 
-func (driver *Driver) getUserList(ctx context.Context) ([]db.User, error) {
+func (driver *Driver) getUserList(ctx context.Context) ([]db2.User, error) {
 	// Query user info
 	userQuery := `
 	  SELECT
@@ -427,11 +426,11 @@ func (driver *Driver) getUserList(ctx context.Context) ([]db.User, error) {
 		FROM mysql.user
 		WHERE user NOT LIKE 'mysql.%'
 	`
-	var userList []db.User
+	var userList []db2.User
 	userRows, err := driver.db.QueryContext(ctx, userQuery)
 
 	if err != nil {
-		return nil, util.FormatErrorWithQuery(err, userQuery)
+		return nil, util2.FormatErrorWithQuery(err, userQuery)
 	}
 	defer userRows.Close()
 
@@ -454,7 +453,7 @@ func (driver *Driver) getUserList(ctx context.Context) ([]db.User, error) {
 			grantQuery,
 		)
 		if err != nil {
-			return nil, util.FormatErrorWithQuery(err, grantQuery)
+			return nil, util2.FormatErrorWithQuery(err, grantQuery)
 		}
 		defer grantRows.Close()
 
@@ -467,16 +466,16 @@ func (driver *Driver) getUserList(ctx context.Context) ([]db.User, error) {
 			grantList = append(grantList, grant)
 		}
 		if err := grantRows.Err(); err != nil {
-			return nil, util.FormatErrorWithQuery(err, grantQuery)
+			return nil, util2.FormatErrorWithQuery(err, grantQuery)
 		}
 
-		userList = append(userList, db.User{
+		userList = append(userList, db2.User{
 			Name:  name,
 			Grant: strings.Join(grantList, "\n"),
 		})
 	}
 	if err := userRows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, userQuery)
+		return nil, util2.FormatErrorWithQuery(err, userQuery)
 	}
 	return userList, nil
 }

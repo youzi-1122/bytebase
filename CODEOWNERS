@@ -1,9 +1,0 @@
-# These owners will be the default owners for everything in the repo.
-*                            @d-bytebase
-
-# Frontend
-/frontend/                   @LiuJi-Jim @boojack
-
-# Dependency files
-frontend/package.json        @d-bytebase @tianzhou
-go.mod                       @d-bytebase @tianzhou

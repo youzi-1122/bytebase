@@ -1,14 +1,16 @@
 package api
 
-import "github.com/youzi-1122/bytebase/plugin/vcs"
+import (
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
+)
 
 // AuthProvider is the authentication provider which only supports GitLab for now.
 type AuthProvider struct {
-	ID            int      `jsonapi:"attr,id"`
-	Type          vcs.Type `jsonapi:"attr,type"`
-	Name          string   `jsonapi:"attr,name"`
-	InstanceURL   string   `jsonapi:"attr,instanceUrl"`
-	ApplicationID string   `jsonapi:"attr,applicationId"`
+	ID            int       `jsonapi:"attr,id"`
+	Type          vcs2.Type `jsonapi:"attr,type"`
+	Name          string    `jsonapi:"attr,name"`
+	InstanceURL   string    `jsonapi:"attr,instanceUrl"`
+	ApplicationID string    `jsonapi:"attr,applicationId"`
 	// Secret will be used for OAuth on the client side when user choose to login via Gitlab
 	Secret string `jsonapi:"attr,secret"`
 }

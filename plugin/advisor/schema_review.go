@@ -4,10 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	catalog2 "github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"log"
 	"regexp"
-
-	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 )
 
 // How to add a schema review rule:
@@ -227,7 +226,7 @@ type SchemaReviewCheckContext struct {
 	Charset   string
 	Collation string
 	DbType    DBType
-	Catalog   catalog.Catalog
+	Catalog   catalog2.Catalog
 }
 
 // SchemaReviewCheck checks the statments with schema review policy.

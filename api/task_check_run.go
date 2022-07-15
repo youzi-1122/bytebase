@@ -3,10 +3,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/youzi-1122/bytebase/common"
-	"github.com/youzi-1122/bytebase/plugin/advisor"
-	"github.com/youzi-1122/bytebase/plugin/db"
+	common2 "github.com/youzi-1122/bytebase/common"
+	advisor2 "github.com/youzi-1122/bytebase/plugin/advisor"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
 )
 
 // TaskCheckRunStatus is the status of a task check run.
@@ -66,10 +65,10 @@ type TaskCheckEarliestAllowedTimePayload struct {
 
 // TaskCheckDatabaseStatementAdvisePayload is the task check payload for database statement advise.
 type TaskCheckDatabaseStatementAdvisePayload struct {
-	Statement string  `json:"statement,omitempty"`
-	DbType    db.Type `json:"dbType,omitempty"`
-	Charset   string  `json:"charset,omitempty"`
-	Collation string  `json:"collation,omitempty"`
+	Statement string   `json:"statement,omitempty"`
+	DbType    db2.Type `json:"dbType,omitempty"`
+	Charset   string   `json:"charset,omitempty"`
+	Collation string   `json:"collation,omitempty"`
 
 	// Schema review special fields.
 	PolicyID int `json:"policyID,omitempty"`
@@ -118,7 +117,7 @@ type TaskCheckRun struct {
 	// Domain specific fields
 	Status  TaskCheckRunStatus `jsonapi:"attr,status"`
 	Type    TaskCheckType      `jsonapi:"attr,type"`
-	Code    common.Code        `jsonapi:"attr,code"`
+	Code    common2.Code       `jsonapi:"attr,code"`
 	Comment string             `jsonapi:"attr,comment"`
 	Result  string             `jsonapi:"attr,result"`
 	Payload string             `jsonapi:"attr,payload"`
@@ -176,47 +175,47 @@ type TaskCheckRunStatusPatch struct {
 
 	// Domain specific fields
 	Status TaskCheckRunStatus
-	Code   common.Code
+	Code   common2.Code
 	Result string
 }
 
 // ConvertToAdvisorDBType will convert db type into advisor db type
-func ConvertToAdvisorDBType(dbType db.Type) (advisor.DBType, error) {
+func ConvertToAdvisorDBType(dbType db2.Type) (advisor2.DBType, error) {
 	switch dbType {
-	case db.MySQL:
-		return advisor.MySQL, nil
-	case db.Postgres:
-		return advisor.Postgres, nil
-	case db.TiDB:
-		return advisor.TiDB, nil
+	case db2.MySQL:
+		return advisor2.MySQL, nil
+	case db2.Postgres:
+		return advisor2.Postgres, nil
+	case db2.TiDB:
+		return advisor2.TiDB, nil
 	}
 
 	return "", fmt.Errorf("unsupported db type %s for advisor", dbType)
 }
 
 // IsSyntaxCheckSupported checks the engine type if syntax check supports it.
-func IsSyntaxCheckSupported(dbType db.Type, mode common.ReleaseMode) bool {
-	if mode == common.ReleaseModeDev || dbType == db.MySQL || dbType == db.TiDB {
+func IsSyntaxCheckSupported(dbType db2.Type, mode common2.ReleaseMode) bool {
+	if mode == common2.ReleaseModeDev || dbType == db2.MySQL || dbType == db2.TiDB {
 		advisorDB, err := ConvertToAdvisorDBType(dbType)
 		if err != nil {
 			return false
 		}
 
-		return advisor.IsSyntaxCheckSupported(advisorDB)
+		return advisor2.IsSyntaxCheckSupported(advisorDB)
 	}
 
 	return false
 }
 
 // IsSchemaReviewSupported checks the engine type if schema review supports it.
-func IsSchemaReviewSupported(dbType db.Type, mode common.ReleaseMode) bool {
-	if mode == common.ReleaseModeDev || dbType == db.MySQL || dbType == db.TiDB {
+func IsSchemaReviewSupported(dbType db2.Type, mode common2.ReleaseMode) bool {
+	if mode == common2.ReleaseModeDev || dbType == db2.MySQL || dbType == db2.TiDB {
 		advisorDB, err := ConvertToAdvisorDBType(dbType)
 		if err != nil {
 			return false
 		}
 
-		return advisor.IsSchemaReviewSupported(advisorDB)
+		return advisor2.IsSchemaReviewSupported(advisorDB)
 	}
 
 	return false

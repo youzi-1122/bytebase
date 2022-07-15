@@ -2,8 +2,7 @@ package api
 
 import (
 	"encoding/json"
-
-	"github.com/youzi-1122/bytebase/plugin/vcs"
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // VCS is the API message for a VCS (Version Control System).
@@ -19,11 +18,11 @@ type VCS struct {
 	UpdatedTs int64      `jsonapi:"attr,updatedTs"`
 
 	// Domain specific fields
-	Name          string   `jsonapi:"attr,name"`
-	Type          vcs.Type `jsonapi:"attr,type"`
-	InstanceURL   string   `jsonapi:"attr,instanceUrl"`
-	APIURL        string   `jsonapi:"attr,apiUrl"`
-	ApplicationID string   `jsonapi:"attr,applicationId"`
+	Name          string    `jsonapi:"attr,name"`
+	Type          vcs2.Type `jsonapi:"attr,type"`
+	InstanceURL   string    `jsonapi:"attr,instanceUrl"`
+	APIURL        string    `jsonapi:"attr,apiUrl"`
+	ApplicationID string    `jsonapi:"attr,applicationId"`
 	// For safety concerns, we will not return the secret, and all relevant logic is dealt in the backend.
 	Secret string
 }
@@ -35,9 +34,9 @@ type VCSCreate struct {
 	CreatorID int
 
 	// Domain specific fields
-	Name        string   `jsonapi:"attr,name"`
-	Type        vcs.Type `jsonapi:"attr,type"`
-	InstanceURL string   `jsonapi:"attr,instanceUrl"`
+	Name        string    `jsonapi:"attr,name"`
+	Type        vcs2.Type `jsonapi:"attr,type"`
+	InstanceURL string    `jsonapi:"attr,instanceUrl"`
 	// APIURL derives from InstanceURL
 	APIURL        string
 	ApplicationID string `jsonapi:"attr,applicationId"`
@@ -90,10 +89,10 @@ type ExternalRepository struct {
 
 // VCSExchangeToken is the API message of exchanging token for a VCS.
 type VCSExchangeToken struct {
-	Code         string   `jsonapi:"attr,code"`
-	ID           int      `jsonapi:"attr,vcsId"`
-	Type         vcs.Type `jsonapi:"attr,vcsType"`
-	InstanceURL  string   `jsonapi:"attr,instanceUrl"`
-	ClientID     string   `jsonapi:"attr,clientId"`
-	ClientSecret string   `jsonapi:"attr,clientSecret"`
+	Code         string    `jsonapi:"attr,code"`
+	ID           int       `jsonapi:"attr,vcsId"`
+	Type         vcs2.Type `jsonapi:"attr,vcsType"`
+	InstanceURL  string    `jsonapi:"attr,instanceUrl"`
+	ClientID     string    `jsonapi:"attr,clientId"`
+	ClientSecret string    `jsonapi:"attr,clientSecret"`
 }

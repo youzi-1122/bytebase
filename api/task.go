@@ -2,10 +2,9 @@ package api
 
 import (
 	"encoding/json"
-
-	"github.com/youzi-1122/bytebase/common"
-	"github.com/youzi-1122/bytebase/plugin/db"
-	"github.com/youzi-1122/bytebase/plugin/vcs"
+	common2 "github.com/youzi-1122/bytebase/common"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
+	vcs2 "github.com/youzi-1122/bytebase/plugin/vcs"
 )
 
 // These are special onboarding tasks for demo purpose when bootstrapping the workspace.
@@ -93,17 +92,17 @@ type TaskDatabaseCreatePayload struct {
 
 // TaskDatabaseSchemaUpdatePayload is the task payload for database schema update (DDL).
 type TaskDatabaseSchemaUpdatePayload struct {
-	MigrationType db.MigrationType `json:"migrationType,omitempty"`
-	Statement     string           `json:"statement,omitempty"`
-	SchemaVersion string           `json:"schemaVersion,omitempty"`
-	VCSPushEvent  *vcs.PushEvent   `json:"pushEvent,omitempty"`
+	MigrationType db2.MigrationType `json:"migrationType,omitempty"`
+	Statement     string            `json:"statement,omitempty"`
+	SchemaVersion string            `json:"schemaVersion,omitempty"`
+	VCSPushEvent  *vcs2.PushEvent   `json:"pushEvent,omitempty"`
 }
 
 // TaskDatabaseSchemaUpdateGhostSyncPayload is the task payload for gh-ost syncing ghost table.
 type TaskDatabaseSchemaUpdateGhostSyncPayload struct {
-	Statement     string         `json:"statement,omitempty"`
-	SchemaVersion string         `json:"schemaVersion,omitempty"`
-	VCSPushEvent  *vcs.PushEvent `json:"pushEvent,omitempty"`
+	Statement     string          `json:"statement,omitempty"`
+	SchemaVersion string          `json:"schemaVersion,omitempty"`
+	VCSPushEvent  *vcs2.PushEvent `json:"pushEvent,omitempty"`
 	// SocketFileName is the socket file that gh-ost listens on.
 	// The name follows this template,
 	// `./tmp/gh-ost.{{ISSUE_ID}}.{{TASK_ID}}.{{DATABASE_ID}}.{{DATABASE_NAME}}.{{TABLE_NAME}}.sock`
@@ -123,9 +122,9 @@ type TaskDatabaseSchemaUpdateGhostDropOriginalTablePayload struct {
 
 // TaskDatabaseDataUpdatePayload is the task payload for database data update (DML).
 type TaskDatabaseDataUpdatePayload struct {
-	Statement     string         `json:"statement,omitempty"`
-	SchemaVersion string         `json:"schemaVersion,omitempty"`
-	VCSPushEvent  *vcs.PushEvent `json:"pushEvent,omitempty"`
+	Statement     string          `json:"statement,omitempty"`
+	SchemaVersion string          `json:"schemaVersion,omitempty"`
+	VCSPushEvent  *vcs2.PushEvent `json:"pushEvent,omitempty"`
 }
 
 // TaskDatabaseBackupPayload is the task payload for database backup.
@@ -202,8 +201,8 @@ type TaskCreate struct {
 	Collation         string `jsonapi:"attr,collation"`
 	Labels            string `jsonapi:"attr,labels"`
 	BackupID          *int   `jsonapi:"attr,backupId"`
-	VCSPushEvent      *vcs.PushEvent
-	MigrationType     db.MigrationType `jsonapi:"attr,migrationType"`
+	VCSPushEvent      *vcs2.PushEvent
+	MigrationType     db2.MigrationType `jsonapi:"attr,migrationType"`
 }
 
 // TaskFind is the API message for finding tasks.
@@ -251,7 +250,7 @@ type TaskStatusPatch struct {
 
 	// Domain specific fields
 	Status  TaskStatus `jsonapi:"attr,status"`
-	Code    *common.Code
+	Code    *common2.Code
 	Comment *string `jsonapi:"attr,comment"`
 	Result  *string
 }

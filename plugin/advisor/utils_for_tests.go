@@ -3,9 +3,9 @@ package advisor
 import (
 	"context"
 	"fmt"
+	catalog2 "github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"testing"
 
-	"github.com/youzi-1122/bytebase/plugin/advisor/catalog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -28,21 +28,21 @@ var (
 )
 
 // FindIndex implements the catalog interface.
-func (c *MockCatalogService) FindIndex(ctx context.Context, find *catalog.IndexFind) (*catalog.Index, error) {
+func (c *MockCatalogService) FindIndex(ctx context.Context, find *catalog2.IndexFind) (*catalog2.Index, error) {
 	switch find.IndexName {
 	case MockOldIndexName:
-		return &catalog.Index{
+		return &catalog2.Index{
 			Name:              MockOldIndexName,
 			ColumnExpressions: MockIndexColumnList,
 		}, nil
 	case MockOldUKName:
-		return &catalog.Index{
+		return &catalog2.Index{
 			Unique:            true,
 			Name:              MockOldIndexName,
 			ColumnExpressions: MockIndexColumnList,
 		}, nil
 	case MockOldPKName:
-		return &catalog.Index{
+		return &catalog2.Index{
 			Unique:            true,
 			Name:              MockOldPKName,
 			ColumnExpressions: MockIndexColumnList,
@@ -63,7 +63,7 @@ func RunSchemaReviewRuleTests(
 	tests []TestCase,
 	adv Advisor,
 	rule *SchemaReviewRule,
-	catalog catalog.Catalog,
+	catalog catalog2.Catalog,
 ) {
 	ctx := Context{
 		Charset:   "",

@@ -2,8 +2,7 @@ package api
 
 import (
 	"encoding/json"
-
-	"github.com/youzi-1122/bytebase/plugin/db"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
 )
 
 // Instance is the API message for an instance.
@@ -27,13 +26,13 @@ type Instance struct {
 	DataSourceList []*DataSource `jsonapi:"relation,dataSourceList"`
 
 	// Domain specific fields
-	Name          string  `jsonapi:"attr,name"`
-	Engine        db.Type `jsonapi:"attr,engine"`
-	EngineVersion string  `jsonapi:"attr,engineVersion"`
-	ExternalLink  string  `jsonapi:"attr,externalLink"`
-	Host          string  `jsonapi:"attr,host"`
-	Port          string  `jsonapi:"attr,port"`
-	Username      string  `jsonapi:"attr,username"`
+	Name          string   `jsonapi:"attr,name"`
+	Engine        db2.Type `jsonapi:"attr,engine"`
+	EngineVersion string   `jsonapi:"attr,engineVersion"`
+	ExternalLink  string   `jsonapi:"attr,externalLink"`
+	Host          string   `jsonapi:"attr,host"`
+	Port          string   `jsonapi:"attr,port"`
+	Username      string   `jsonapi:"attr,username"`
 	// Password is not returned to the client
 	Password string
 }
@@ -48,16 +47,16 @@ type InstanceCreate struct {
 	EnvironmentID int `jsonapi:"attr,environmentId"`
 
 	// Domain specific fields
-	Name         string  `jsonapi:"attr,name"`
-	Engine       db.Type `jsonapi:"attr,engine"`
-	ExternalLink string  `jsonapi:"attr,externalLink"`
-	Host         string  `jsonapi:"attr,host"`
-	Port         string  `jsonapi:"attr,port"`
-	Username     string  `jsonapi:"attr,username"`
-	Password     string  `jsonapi:"attr,password"`
-	SslCa        string  `jsonapi:"attr,sslCa"`
-	SslCert      string  `jsonapi:"attr,sslCert"`
-	SslKey       string  `jsonapi:"attr,sslKey"`
+	Name         string   `jsonapi:"attr,name"`
+	Engine       db2.Type `jsonapi:"attr,engine"`
+	ExternalLink string   `jsonapi:"attr,externalLink"`
+	Host         string   `jsonapi:"attr,host"`
+	Port         string   `jsonapi:"attr,port"`
+	Username     string   `jsonapi:"attr,username"`
+	Password     string   `jsonapi:"attr,password"`
+	SslCa        string   `jsonapi:"attr,sslCa"`
+	SslCert      string   `jsonapi:"attr,sslCert"`
+	SslKey       string   `jsonapi:"attr,sslKey"`
 	// If true, syncs the schema after adding the instance. The client
 	// may set to false if the target instance contains too many databases
 	// to avoid the request timeout.
@@ -148,19 +147,19 @@ type MigrationHistory struct {
 	UpdatedTs int64  `jsonapi:"attr,updatedTs"`
 
 	// Domain specific fields
-	ReleaseVersion        string             `jsonapi:"attr,releaseVersion"`
-	Database              string             `jsonapi:"attr,database"`
-	Source                db.MigrationSource `jsonapi:"attr,source"`
-	Type                  db.MigrationType   `jsonapi:"attr,type"`
-	Status                db.MigrationStatus `jsonapi:"attr,status"`
-	Version               string             `jsonapi:"attr,version"`
-	UseSemanticVersion    bool               `jsonapi:"attr,useSemanticVersion"`
-	SemanticVersionSuffix string             `jsonapi:"attr,semanticVersionSuffix"`
-	Description           string             `jsonapi:"attr,description"`
-	Statement             string             `jsonapi:"attr,statement"`
-	Schema                string             `jsonapi:"attr,schema"`
-	SchemaPrev            string             `jsonapi:"attr,schemaPrev"`
-	ExecutionDurationNs   int64              `jsonapi:"attr,executionDurationNs"`
+	ReleaseVersion        string              `jsonapi:"attr,releaseVersion"`
+	Database              string              `jsonapi:"attr,database"`
+	Source                db2.MigrationSource `jsonapi:"attr,source"`
+	Type                  db2.MigrationType   `jsonapi:"attr,type"`
+	Status                db2.MigrationStatus `jsonapi:"attr,status"`
+	Version               string              `jsonapi:"attr,version"`
+	UseSemanticVersion    bool                `jsonapi:"attr,useSemanticVersion"`
+	SemanticVersionSuffix string              `jsonapi:"attr,semanticVersionSuffix"`
+	Description           string              `jsonapi:"attr,description"`
+	Statement             string              `jsonapi:"attr,statement"`
+	Schema                string              `jsonapi:"attr,schema"`
+	SchemaPrev            string              `jsonapi:"attr,schemaPrev"`
+	ExecutionDurationNs   int64               `jsonapi:"attr,executionDurationNs"`
 	// This is a string instead of int as the issue id may come from other issue tracking system in the future
 	IssueID string `jsonapi:"attr,issueId"`
 	Payload string `jsonapi:"attr,payload"`

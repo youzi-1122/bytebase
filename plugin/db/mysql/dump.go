@@ -5,15 +5,15 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	api2 "github.com/youzi-1122/bytebase/api"
+	common2 "github.com/youzi-1122/bytebase/common"
+	log2 "github.com/youzi-1122/bytebase/common/log"
+	util2 "github.com/youzi-1122/bytebase/plugin/db/util"
 	"io"
 	"regexp"
 	"strings"
 	"time"
 
-	"github.com/youzi-1122/bytebase/api"
-	"github.com/youzi-1122/bytebase/common"
-	"github.com/youzi-1122/bytebase/common/log"
-	"github.com/youzi-1122/bytebase/plugin/db/util"
 	"go.uber.org/zap"
 )
 
@@ -29,12 +29,14 @@ const (
 		"SET character_set_results = %s;\n" +
 		"SET collation_connection  = %s;\n" +
 		"SET sql_mode              = '%s';\n"
-	tableStmtFmt = "DROP TABLE IF EXISTS `%s`;\n" +
+	tableStmtFmt = "SET FOREIGN_KEY_CHECKS=0;\n" +
+		"DROP TABLE IF EXISTS `%s`;\n" +
 		"--\n" +
 		"-- Table structure for `%s`\n" +
 		"--\n" +
-		"%s;\n"
-	viewStmtFmt = "DROP TABLE IF EXISTS `%s`;\n" +
+		"%s;\n" +
+		"SET FOREIGN_KEY_CHECKS=1;\n"
+	viewStmtFmt = "DROP VIEW IF EXISTS `%s`;\n" +
 		"--\n" +
 		"-- View structure for `%s`\n" +
 		"--\n" +
@@ -71,7 +73,7 @@ var (
 )
 
 // Dump dumps the database.
-func (driver *Driver) Dump(ctx context.Context, database string, out io.Writer, schemaOnly bool) (string, error) {
+func (driver *Driver) Dump(ctx context.Context, database string, out io.Writer, schemaOnly bool, query string, tables ...string) (string, error) {
 	// mysqldump -u root --databases dbName --no-data --routines --events --triggers --compact
 
 	// We must use the same MySQL connection to lock and unlock tables.
@@ -99,8 +101,8 @@ func (driver *Driver) Dump(ctx context.Context, database string, out io.Writer, 
 	}
 	defer txn.Rollback()
 
-	log.Debug("begin to dump database", zap.String("database", database))
-	if err := dumpTxn(ctx, txn, database, out, schemaOnly); err != nil {
+	log2.Debug("begin to dump database", zap.String("database", database))
+	if err := dumpTxn(ctx, txn, database, out, schemaOnly, query, tables...); err != nil {
 		return "", err
 	}
 
@@ -149,8 +151,17 @@ func FlushTablesWithReadLock(ctx context.Context, conn *sql.Conn, database strin
 	return nil
 }
 
-func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, schemaOnly bool) error {
-	log.Debug("begin to dump database", zap.String("database", database))
+func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, schemaOnly bool, query string, tableName ...string) error {
+	log2.Debug("begin to dump database", zap.String("database", database))
+	tableMap := make(map[string]struct{}, 0)
+	if len(tableName) > 0 {
+		for _, name := range tableName {
+			tableMap[name] = struct{}{}
+		}
+	}
+
+	//加速restore
+	io.WriteString(out, "set global innodb_flush_log_at_trx_commit = 2;\n")
 	// Find all dumpable databases
 	dbNames, err := getDatabases(ctx, txn)
 	if err != nil {
@@ -167,7 +178,7 @@ func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, s
 			}
 		}
 		if !exist {
-			return common.Errorf(common.NotFound, fmt.Errorf("database %s not found", database))
+			return common2.Errorf(common2.NotFound, fmt.Errorf("database %s not found", database))
 		}
 		dumpableDbNames = []string{database}
 	} else {
@@ -207,6 +218,12 @@ func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, s
 			return fmt.Errorf("failed to get tables of database %q, error: %w", dbName, err)
 		}
 		for _, tbl := range tables {
+			if len(tableName) > 0 {
+				//无需备份的表忽略
+				if _, ok := tableMap[tbl.Name]; !ok {
+					continue
+				}
+			}
 			if schemaOnly && tbl.TableType == baseTableType {
 				tbl.Statement = excludeSchemaAutoIncrementValue(tbl.Statement)
 			}
@@ -216,7 +233,7 @@ func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, s
 			if !schemaOnly && tbl.TableType == baseTableType {
 				// Include db prefix if dumping multiple databases.
 				includeDbPrefix := len(dumpableDbNames) > 1
-				if err := exportTableData(txn, dbName, tbl.Name, includeDbPrefix, out); err != nil {
+				if err := exportTableData(txn, dbName, tbl.Name, includeDbPrefix, out, query); err != nil {
 					return err
 				}
 			}
@@ -255,6 +272,8 @@ func dumpTxn(ctx context.Context, txn *sql.Tx, database string, out io.Writer, s
 			}
 		}
 	}
+	//恢复加速restore设置
+	io.WriteString(out, "set global innodb_flush_log_at_trx_commit = 1;\n")
 
 	return nil
 }
@@ -266,9 +285,9 @@ func excludeSchemaAutoIncrementValue(s string) string {
 }
 
 // GetBinlogInfo queries current binlog info from MySQL server.
-func GetBinlogInfo(ctx context.Context, conn *sql.Conn) (api.BinlogInfo, error) {
+func GetBinlogInfo(ctx context.Context, conn *sql.Conn) (api2.BinlogInfo, error) {
 	query := "SHOW MASTER STATUS"
-	binlogInfo := api.BinlogInfo{}
+	binlogInfo := api2.BinlogInfo{}
 	var unused interface{}
 	if err := conn.QueryRowContext(ctx, query).Scan(
 		&binlogInfo.FileName,
@@ -278,9 +297,9 @@ func GetBinlogInfo(ctx context.Context, conn *sql.Conn) (api.BinlogInfo, error) 
 		&unused,
 	); err != nil {
 		if err == sql.ErrNoRows {
-			return api.BinlogInfo{}, common.FormatDBErrorEmptyRowWithQuery(query)
+			return api2.BinlogInfo{}, common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
-		return api.BinlogInfo{}, err
+		return api2.BinlogInfo{}, err
 	}
 	return binlogInfo, nil
 }
@@ -291,7 +310,7 @@ func getDatabaseStmt(txn *sql.Tx, dbName string) (string, error) {
 	var stmt, unused string
 	if err := txn.QueryRow(query).Scan(&unused, &stmt); err != nil {
 		if err == sql.ErrNoRows {
-			return "", common.FormatDBErrorEmptyRowWithQuery(query)
+			return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
 		return "", err
 	}
@@ -376,22 +395,22 @@ func getTableStmt(txn *sql.Tx, dbName, tblName, tblType string) (string, error) 
 		var stmt, unused string
 		if err := txn.QueryRow(query).Scan(&unused, &stmt); err != nil {
 			if err == sql.ErrNoRows {
-				return "", common.FormatDBErrorEmptyRowWithQuery(query)
+				return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 			}
 			return "", err
 		}
-		return fmt.Sprintf(tableStmtFmt,tblName, tblName, stmt), nil
+		return fmt.Sprintf(tableStmtFmt, tblName, tblName, stmt), nil
 	case viewTableType:
 		// This differs from mysqldump as it includes.
-		//query := fmt.Sprintf("SHOW CREATE VIEW `%s`.`%s`;", dbName, tblName)
-		//var createStmt, unused string
-		//if err := txn.QueryRow(query).Scan(&unused, &createStmt, &unused, &unused); err != nil {
-		//	if err == sql.ErrNoRows {
-		//		return "", common.FormatDBErrorEmptyRowWithQuery(query)
-		//	}
-		//	return "", err
-		//}
-		//return fmt.Sprintf(viewStmtFmt, tblName,tblName, createStmt), nil
+		query := fmt.Sprintf("SHOW CREATE VIEW `%s`.`%s`;", dbName, tblName)
+		var createStmt, unused string
+		if err := txn.QueryRow(query).Scan(&unused, &createStmt, &unused, &unused); err != nil {
+			if err == sql.ErrNoRows {
+				return "", common2.FormatDBErrorEmptyRowWithQuery(query)
+			}
+			return "", err
+		}
+		return fmt.Sprintf(viewStmtFmt, tblName, tblName, createStmt), nil
 	default:
 		return "", fmt.Errorf("unrecognized table type %q for database %q table %q", tblType, dbName, tblName)
 	}
@@ -399,8 +418,8 @@ func getTableStmt(txn *sql.Tx, dbName, tblName, tblType string) (string, error) 
 }
 
 // exportTableData gets the data of a table.
-func exportTableData(txn *sql.Tx, dbName, tblName string, includeDbPrefix bool, out io.Writer) error {
-	query := fmt.Sprintf("SELECT * FROM `%s`.`%s`;", dbName, tblName)
+func exportTableData(txn *sql.Tx, dbName, tblName string, includeDbPrefix bool, out io.Writer, where string) error {
+	query := fmt.Sprintf("SELECT * FROM `%s`.`%s` WHERE %s;", dbName, tblName, where)
 	rows, err := txn.Query(query)
 	if err != nil {
 		return err
@@ -419,6 +438,7 @@ func exportTableData(txn *sql.Tx, dbName, tblName string, includeDbPrefix bool, 
 	for i := 0; i < len(cols); i++ {
 		refs[i] = &values[i]
 	}
+	docs := make([]string, 0)
 	for rows.Next() {
 		if err := rows.Scan(refs...); err != nil {
 			return err
@@ -434,21 +454,21 @@ func exportTableData(txn *sql.Tx, dbName, tblName string, includeDbPrefix bool, 
 				tokens[i] = fmt.Sprintf("'%s'", v.String)
 			}
 		}
-		dbPrefix := ""
-		if includeDbPrefix {
-			dbPrefix = fmt.Sprintf("`%s`.", dbName)
-		}
-		stmt := fmt.Sprintf("INSERT INTO %s`%s` VALUES (%s);\n", dbPrefix, tblName, strings.Join(tokens, ", "))
-		if _, err := io.WriteString(out, stmt); err != nil {
-			return err
+		doc := fmt.Sprintf("(%s)", strings.Join(tokens, ","))
+		docs = append(docs, doc)
+		if len(docs) == 1000 {
+			io.WriteString(out, fmt.Sprintf("INSERT INTO `%s` VALUES %s;\n", tblName, strings.Join(docs, ",")))
+			docs = make([]string, 0)
 		}
 	}
+	if len(docs) > 0 {
+		io.WriteString(out, fmt.Sprintf("INSERT INTO `%s` VALUES %s;\n", tblName, strings.Join(docs, ",")))
+	}
+
 	if err := rows.Err(); err != nil {
 		return err
 	}
-	if _, err := io.WriteString(out, "\n"); err != nil {
-		return err
-	}
+
 	return nil
 }
 
@@ -515,7 +535,7 @@ func getRoutineStmt(txn *sql.Tx, dbName, routineName, routineType string) (strin
 		&unused,
 	); err != nil {
 		if err == sql.ErrNoRows {
-			return "", common.FormatDBErrorEmptyRowWithQuery(query)
+			return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
 		return "", err
 	}
@@ -562,7 +582,7 @@ func getEvents(txn *sql.Tx, dbName string) ([]*eventSchema, error) {
 		events = append(events, &r)
 	}
 	if err := rows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, query)
+		return nil, util2.FormatErrorWithQuery(err, query)
 	}
 
 	for _, r := range events {
@@ -581,7 +601,7 @@ func getEventStmt(txn *sql.Tx, dbName, eventName string) (string, error) {
 	var sqlmode, timezone, stmt, charset, collation, unused string
 	if err := txn.QueryRow(query).Scan(&unused, &sqlmode, &timezone, &stmt, &charset, &collation, &unused); err != nil {
 		if err == sql.ErrNoRows {
-			return "", common.FormatDBErrorEmptyRowWithQuery(query)
+			return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
 		return "", err
 	}
@@ -615,7 +635,7 @@ func getTriggers(txn *sql.Tx, dbName string) ([]*triggerSchema, error) {
 		triggers = append(triggers, &tr)
 	}
 	if err := rows.Err(); err != nil {
-		return nil, util.FormatErrorWithQuery(err, query)
+		return nil, util2.FormatErrorWithQuery(err, query)
 	}
 	for _, tr := range triggers {
 		stmt, err := getTriggerStmt(txn, dbName, tr.name)
@@ -633,7 +653,7 @@ func getTriggerStmt(txn *sql.Tx, dbName, triggerName string) (string, error) {
 	var sqlmode, stmt, charset, collation, unused string
 	if err := txn.QueryRow(query).Scan(&unused, &sqlmode, &stmt, &charset, &collation, &unused, &unused); err != nil {
 		if err == sql.ErrNoRows {
-			return "", common.FormatDBErrorEmptyRowWithQuery(query)
+			return "", common2.FormatDBErrorEmptyRowWithQuery(query)
 		}
 		return "", err
 	}
@@ -672,7 +692,7 @@ func (driver *Driver) restoreTx(ctx context.Context, tx *sql.Tx, sc *bufio.Scann
 		return nil
 	}
 
-	if err := util.ApplyMultiStatements(sc, fnExecuteStmt); err != nil {
+	if err := util2.ApplyMultiStatements(sc, fnExecuteStmt); err != nil {
 		return err
 	}
 	return nil

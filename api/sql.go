@@ -2,23 +2,22 @@ package api
 
 import (
 	"context"
-
-	"github.com/youzi-1122/bytebase/plugin/advisor"
-	"github.com/youzi-1122/bytebase/plugin/db"
+	advisor2 "github.com/youzi-1122/bytebase/plugin/advisor"
+	db2 "github.com/youzi-1122/bytebase/plugin/db"
 )
 
 // ConnectionInfo is the API message for connection infos.
 type ConnectionInfo struct {
-	Engine           db.Type `jsonapi:"attr,engine"`
-	Host             string  `jsonapi:"attr,host"`
-	Port             string  `jsonapi:"attr,port"`
-	Username         string  `jsonapi:"attr,username"`
-	Password         string  `jsonapi:"attr,password"`
-	UseEmptyPassword bool    `jsonapi:"attr,useEmptyPassword"`
-	InstanceID       *int    `jsonapi:"attr,instanceId"`
-	SslCa            *string `jsonapi:"attr,sslCa"`
-	SslCert          *string `jsonapi:"attr,sslCert"`
-	SslKey           *string `jsonapi:"attr,sslKey"`
+	Engine           db2.Type `jsonapi:"attr,engine"`
+	Host             string   `jsonapi:"attr,host"`
+	Port             string   `jsonapi:"attr,port"`
+	Username         string   `jsonapi:"attr,username"`
+	Password         string   `jsonapi:"attr,password"`
+	UseEmptyPassword bool     `jsonapi:"attr,useEmptyPassword"`
+	InstanceID       *int     `jsonapi:"attr,instanceId"`
+	SslCa            *string  `jsonapi:"attr,sslCa"`
+	SslCert          *string  `jsonapi:"attr,sslCert"`
+	SslKey           *string  `jsonapi:"attr,sslKey"`
 }
 
 // SQLSyncSchema is the API message for sync schemas.
@@ -47,7 +46,7 @@ type SQLResultSet struct {
 	// SQL operation may fail for connection issue and there is no proper http status code for it, so we return error in the response body.
 	Error string `jsonapi:"attr,error"`
 	// A list of SQL check advice.
-	AdviceList []advisor.Advice `jsonapi:"attr,adviceList"`
+	AdviceList []advisor2.Advice `jsonapi:"attr,adviceList"`
 }
 
 // SQLService is the service for SQL.

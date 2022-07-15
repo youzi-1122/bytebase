@@ -7,11 +7,11 @@ builds:
     binary: bytebase
     ldflags:
       - -w -s
-      - -X github.com/youzi-1122/bytebase/bin/server/cmd.version={{.Version}}
-      - -X github.com/youzi-1122/bytebase/bin/server/cmd.goversion=${GO_VERSION}
-      - -X github.com/youzi-1122/bytebase/bin/server/cmd.gitcommit={{.Commit}}
-      - -X github.com/youzi-1122/bytebase/bin/server/cmd.buildtime={{.Timestamp}}
-      - -X github.com/youzi-1122/bytebase/bin/server/cmd.builduser=goreleaser
+      - -Xgithub.com/youzi-1122/bytebase/bin/server/cmd.version={{.Version}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/server/cmd.goversion=${GO_VERSION}
+      - -Xgithub.com/youzi-1122/bytebase/bin/server/cmd.gitcommit={{.Commit}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/server/cmd.buildtime={{.Timestamp}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/server/cmd.builduser=goreleaser
     tags:
       - release
       - embed_frontend
@@ -41,11 +41,11 @@ builds:
     binary: bb
     ldflags:
       - -w -s
-      - -X github.com/youzi-1122/bytebase/bin/bb/cmd.version={{.Version}}
-      - -X github.com/youzi-1122/bytebase/bin/bb/cmd.goversion=${GO_VERSION}
-      - -X github.com/youzi-1122/bytebase/bin/bb/cmd.gitcommit={{.Commit}}
-      - -X github.com/youzi-1122/bytebase/bin/bb/cmd.buildtime={{.Timestamp}}
-      - -X github.com/youzi-1122/bytebase/bin/bb/cmd.builduser=goreleaser
+      - -Xgithub.com/youzi-1122/bytebase/bin/bb/cmd.version={{.Version}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/bb/cmd.goversion=${GO_VERSION}
+      - -Xgithub.com/youzi-1122/bytebase/bin/bb/cmd.gitcommit={{.Commit}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/bb/cmd.buildtime={{.Timestamp}}
+      - -Xgithub.com/youzi-1122/bytebase/bin/bb/cmd.builduser=goreleaser
     tags:
       - release
     env:
